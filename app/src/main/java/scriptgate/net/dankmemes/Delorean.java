@@ -46,24 +46,20 @@ class Delorean {
     }
 
     void transform(float[] deltaRotationVector) {
-        float x = model.position().x() + deltaRotationVector[1] / 7.0f;
+        model.translate(new Point3D(deltaRotationVector[1]/7.0f, 0,0));
 
         float MINIMUM = -1.1f;
         float MAXIMUM = -0.4f;
 
-        if (x < MINIMUM) {
-            x = MINIMUM;
-        } else if (x > MAXIMUM) {
-            x = MAXIMUM;
+        if (model.position().x() < MINIMUM) {
+            model.setPosition(model.position().x(MINIMUM));
+        } else if (model.position().x() > MAXIMUM) {
+            model.setPosition(model.position().x(MAXIMUM));
         }
-        model.setPosition(model.position().x(x));
+
     }
 
     void render(Consumer<Square> renderer) {
         renderer.accept(model);
-    }
-
-    void center() {
-        model.setPosition(CENTER);
     }
 }

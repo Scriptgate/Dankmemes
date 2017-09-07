@@ -36,7 +36,6 @@ public class DankmemesWallpaperService extends GLWallpaperService {
 
             SensorManager sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
             addComponent(new SensorService(sensorManager, renderer));
-            addComponent(renderer);
         }
 
         private boolean supportsOpenGLES20() {

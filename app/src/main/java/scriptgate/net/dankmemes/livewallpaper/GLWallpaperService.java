@@ -36,6 +36,8 @@ public abstract class GLWallpaperService extends WallpaperService {
 		class WallpaperGLSurfaceView extends GLSurfaceView {
 			private static final String TAG = "WallpaperGLSurfaceView";
 
+			//TODO: implement onTouchEvent to reset Delorean back to center
+
             WallpaperGLSurfaceView(Context context) {
 				super(context);
                 LOG.accept(TAG, "WallpaperGLSurfaceView(" + context + ")");
@@ -44,7 +46,6 @@ public abstract class GLWallpaperService extends WallpaperService {
 			@Override
 			public SurfaceHolder getHolder() {
                 LOG.accept(TAG, "getHolder(): returning " + getSurfaceHolder());
-
 				return getSurfaceHolder();
 			}
 

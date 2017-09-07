@@ -3,7 +3,6 @@ package scriptgate.net.dankmemes;
 import android.content.Context;
 
 import net.scriptgate.common.Point3D;
-import net.scriptgate.opengles.activity.Resumable;
 import net.scriptgate.opengles.matrix.ModelMatrix;
 import net.scriptgate.opengles.matrix.ModelViewProjectionMatrix;
 import net.scriptgate.opengles.matrix.ProjectionMatrix;
@@ -20,7 +19,7 @@ import static net.scriptgate.opengles.program.AttributeVariable.COLOR;
 import static net.scriptgate.opengles.program.AttributeVariable.POSITION;
 import static net.scriptgate.opengles.program.ProgramBuilder.program;
 
-public class DankmemesRenderer extends RendererBase implements Resumable {
+public class DankmemesRenderer extends RendererBase {
 
 
     private Background background;
@@ -96,15 +95,5 @@ public class DankmemesRenderer extends RendererBase implements Resumable {
 
     public void setGyroscopeValues(float[] deltaRotationVector) {
         this.deltaRotationVector = deltaRotationVector;
-    }
-
-    @Override
-    public void onResume() {
-        delorean.center();
-    }
-
-    @Override
-    public void onPause() {
-        delorean.center();
     }
 }
