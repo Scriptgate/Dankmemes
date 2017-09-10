@@ -7,7 +7,7 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 
 
-import net.scriptgate.opengles.activity.Resumable;
+import net.scriptgate.android.component.Resumable;
 
 import scriptgate.net.dankmemes.DankmemesRenderer;
 

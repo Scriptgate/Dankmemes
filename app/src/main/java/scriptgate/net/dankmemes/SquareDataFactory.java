@@ -1,7 +1,7 @@
 package scriptgate.net.dankmemes;
 
-import net.scriptgate.common.Point2D;
-import net.scriptgate.opengles.face.Point2DFace;
+import net.scriptgate.android.common.Point2D;
+import net.scriptgate.android.opengles.face.Point2DFace;
 
 import static scriptgate.net.dankmemes.Square.ELEMENTS_PER_FACE;
 

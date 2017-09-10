@@ -2,22 +2,22 @@ package scriptgate.net.dankmemes;
 
 import android.content.Context;
 
-import net.scriptgate.common.Point3D;
-import net.scriptgate.opengles.matrix.ModelMatrix;
-import net.scriptgate.opengles.matrix.ModelViewProjectionMatrix;
-import net.scriptgate.opengles.matrix.ProjectionMatrix;
-import net.scriptgate.opengles.matrix.ViewMatrix;
-import net.scriptgate.opengles.program.Program;
-import net.scriptgate.opengles.renderer.RendererBase;
+import net.scriptgate.android.common.Point3D;
+import net.scriptgate.android.opengles.matrix.ModelMatrix;
+import net.scriptgate.android.opengles.matrix.ModelViewProjectionMatrix;
+import net.scriptgate.android.opengles.matrix.ProjectionMatrix;
+import net.scriptgate.android.opengles.matrix.ViewMatrix;
+import net.scriptgate.android.opengles.program.Program;
+import net.scriptgate.android.opengles.renderer.RendererBase;
 
 import java8.util.function.Consumer;
 
 import static android.opengl.GLES20.*;
-import static net.scriptgate.common.Color.GREY;
-import static net.scriptgate.opengles.matrix.ViewMatrix.createViewBehindOrigin;
-import static net.scriptgate.opengles.program.AttributeVariable.COLOR;
-import static net.scriptgate.opengles.program.AttributeVariable.POSITION;
-import static net.scriptgate.opengles.program.ProgramBuilder.program;
+import static net.scriptgate.android.common.Color.GREY;
+import static net.scriptgate.android.opengles.matrix.ViewMatrix.createViewBehindOrigin;
+import static net.scriptgate.android.opengles.program.AttributeVariable.COLOR;
+import static net.scriptgate.android.opengles.program.AttributeVariable.POSITION;
+import static net.scriptgate.android.opengles.program.ProgramBuilder.program;
 
 public class DankmemesRenderer extends RendererBase {
 
@@ -25,6 +25,7 @@ public class DankmemesRenderer extends RendererBase {
     private Background background;
     private Grid grid;
     private Horizon horizon;
+    private Title title;
     private Delorean delorean;
 
     private Context activityContext;
@@ -39,6 +40,7 @@ public class DankmemesRenderer extends RendererBase {
         background = new Background();
         grid = new Grid();
         horizon = new Horizon();
+        title = new Title();
         delorean = new Delorean();
     }
 
@@ -59,6 +61,7 @@ public class DankmemesRenderer extends RendererBase {
         background.loadTexture(activityContext);
         grid.loadTexture(activityContext);
         horizon.loadTexture(activityContext);
+        title.loadTexture(activityContext);
         delorean.loadTexture(activityContext);
 
         glGenerateMipmap(GL_TEXTURE_2D);
@@ -89,11 +92,16 @@ public class DankmemesRenderer extends RendererBase {
         background.render(renderer);
         grid.render(renderer);
         horizon.render(renderer);
+        title.render(renderer);
         delorean.transform(deltaRotationVector);
         delorean.render(renderer);
     }
 
     public void setGyroscopeValues(float[] deltaRotationVector) {
         this.deltaRotationVector = deltaRotationVector;
+    }
+
+    public void reset() {
+        delorean.reset();
     }
 }

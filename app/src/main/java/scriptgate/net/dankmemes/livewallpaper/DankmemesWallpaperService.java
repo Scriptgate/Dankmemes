@@ -7,7 +7,7 @@ import android.hardware.SensorManager;
 import android.service.wallpaper.WallpaperService;
 import android.view.SurfaceHolder;
 
-import net.scriptgate.opengles.activity.adapter.GLSurfaceViewAdapter;
+import net.scriptgate.android.opengles.activity.adapter.GLSurfaceViewAdapter;
 
 import scriptgate.net.dankmemes.DankmemesRenderer;
 

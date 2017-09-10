@@ -7,7 +7,7 @@ import android.service.wallpaper.WallpaperService;
 import android.util.Log;
 import android.view.SurfaceHolder;
 
-import net.scriptgate.opengles.activity.Resumable;
+import net.scriptgate.android.component.Resumable;
 
 import java.util.ArrayList;
 import java.util.Collection;

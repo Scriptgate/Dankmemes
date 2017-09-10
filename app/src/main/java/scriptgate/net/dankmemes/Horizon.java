@@ -3,9 +3,9 @@ package scriptgate.net.dankmemes;
 
 import android.content.Context;
 
-import net.scriptgate.common.Point3D;
-import net.scriptgate.opengles.face.Point3DFace;
-import net.scriptgate.opengles.texture.TextureHelper;
+import net.scriptgate.android.common.Point3D;
+import net.scriptgate.android.opengles.face.Point3DFace;
+import net.scriptgate.android.opengles.texture.TextureHelper;
 
 import java8.util.function.Consumer;
 
