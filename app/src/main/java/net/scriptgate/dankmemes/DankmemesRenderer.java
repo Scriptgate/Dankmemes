@@ -1,4 +1,4 @@
-package scriptgate.net.dankmemes;
+package net.scriptgate.dankmemes;
 
 import android.content.Context;
 

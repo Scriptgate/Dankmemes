@@ -1,4 +1,4 @@
-package scriptgate.net.dankmemes;
+package net.scriptgate.dankmemes;
 
 
 import android.content.Context;
@@ -14,9 +14,6 @@ import java.util.List;
 import java8.util.function.Consumer;
 
 import static java8.util.stream.StreamSupport.stream;
-import static scriptgate.net.dankmemes.Square.ELEMENTS_PER_FACE;
-import static scriptgate.net.dankmemes.Square.createSquare;
-import static scriptgate.net.dankmemes.SquareDataFactory.generateTextureData;
 
 class Background {
 
@@ -33,13 +30,13 @@ class Background {
                 new Point3D(0, 1.0f, 0),
                 new Point3D(1.0f, 1.0f, 0)
         );
-        float[] verticesData = new float[ELEMENTS_PER_FACE * face.getNumberOfElements()];
+        float[] verticesData = new float[Square.ELEMENTS_PER_FACE * face.getNumberOfElements()];
         face.addFaceToArray(verticesData, 0);
-        float[] textureData = generateTextureData(5.0f, 5.0f);
+        float[] textureData = SquareDataFactory.generateTextureData(5.0f, 5.0f);
 
-        background.add(createSquare(new Point3D(-SCALE / 2, 0, -7.5f), new Point3D(), verticesData, textureData));
-        background.add(createSquare(new Point3D(-SCALE / 2, -SCALE, -7.5f), new Point3D(), verticesData, textureData));
-        background.add(createSquare(new Point3D(-SCALE / 2, -2 * SCALE, -7.5f), new Point3D(), verticesData, textureData));
+        background.add(Square.createSquare(new Point3D(-SCALE / 2, 0, -7.5f), new Point3D(), verticesData, textureData));
+        background.add(Square.createSquare(new Point3D(-SCALE / 2, -SCALE, -7.5f), new Point3D(), verticesData, textureData));
+        background.add(Square.createSquare(new Point3D(-SCALE / 2, -2 * SCALE, -7.5f), new Point3D(), verticesData, textureData));
 
         stream(background).forEach(new Consumer<Square>() {
             @Override

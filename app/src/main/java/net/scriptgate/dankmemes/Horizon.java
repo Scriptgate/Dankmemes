@@ -1,4 +1,4 @@
-package scriptgate.net.dankmemes;
+package net.scriptgate.dankmemes;
 
 
 import android.content.Context;
@@ -8,10 +8,6 @@ import net.scriptgate.android.opengles.face.Point3DFace;
 import net.scriptgate.android.opengles.texture.TextureHelper;
 
 import java8.util.function.Consumer;
-
-import static scriptgate.net.dankmemes.Square.ELEMENTS_PER_FACE;
-import static scriptgate.net.dankmemes.Square.createSquare;
-import static scriptgate.net.dankmemes.SquareDataFactory.generateTextureData;
 
 class Horizon {
 
@@ -28,14 +24,14 @@ class Horizon {
                 new Point3D(0, height, 0),
                 new Point3D(width, height, 0)
         );
-        float[] verticesData = new float[ELEMENTS_PER_FACE * face.getNumberOfElements()];
+        float[] verticesData = new float[Square.ELEMENTS_PER_FACE * face.getNumberOfElements()];
         face.addFaceToArray(verticesData, 0);
 
-        model = createSquare(
+        model = Square.createSquare(
                 new Point3D(-1.5f, 0.6f, 0),
                 new Point3D(),
                 verticesData,
-                generateTextureData(3.0f, 1.0f));
+                SquareDataFactory.generateTextureData(3.0f, 1.0f));
         model.setScale(new Point3D(3, 1, 1));
 
     }

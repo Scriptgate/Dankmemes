@@ -1,15 +1,14 @@
-package scriptgate.net.dankmemes.livewallpaper;
+package net.scriptgate.dankmemes.livewallpaper;
 
 
 import android.app.ActivityManager;
-import android.content.Context;
 import android.hardware.SensorManager;
 import android.service.wallpaper.WallpaperService;
 import android.view.SurfaceHolder;
 
 import net.scriptgate.android.opengles.activity.adapter.GLSurfaceViewAdapter;
 
-import scriptgate.net.dankmemes.DankmemesRenderer;
+import net.scriptgate.dankmemes.DankmemesRenderer;
 
 public class DankmemesWallpaperService extends GLWallpaperService {
 
@@ -34,12 +33,12 @@ public class DankmemesWallpaperService extends GLWallpaperService {
                 throw new UnsupportedOperationException("This activity requires OpenGL ES 2.0");
             }
 
-            SensorManager sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+            SensorManager sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
             addComponent(new SensorService(sensorManager, renderer));
         }
 
         private boolean supportsOpenGLES20() {
-            ActivityManager activityManager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+            ActivityManager activityManager = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
             return activityManager.getDeviceConfigurationInfo().reqGlEsVersion >= 0x20000;
         }
     }

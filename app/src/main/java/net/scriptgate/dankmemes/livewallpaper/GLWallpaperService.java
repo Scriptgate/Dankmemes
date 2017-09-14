@@ -1,12 +1,15 @@
-package scriptgate.net.dankmemes.livewallpaper;
+package net.scriptgate.dankmemes.livewallpaper;
 
 import android.content.Context;
 import android.opengl.GLSurfaceView;
 import android.opengl.GLSurfaceView.Renderer;
 import android.service.wallpaper.WallpaperService;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 
+
+import net.scriptgate.android.component.Interactable;
 import net.scriptgate.android.component.Resumable;
 
 import java.util.ArrayList;
@@ -14,7 +17,7 @@ import java.util.Collection;
 
 import java8.util.function.BiConsumer;
 import java8.util.function.Consumer;
-import scriptgate.net.dankmemes.LoggerConfig;
+import net.scriptgate.dankmemes.LoggerConfig;
 
 import static java8.util.stream.StreamSupport.stream;
 
@@ -26,17 +29,40 @@ public abstract class GLWallpaperService extends WallpaperService {
             Log.d(TAG, message);}}
     } ;
 
-    Collection<Resumable> components;
+    Collection<Resumable> resumables;
+	Collection<Interactable> interactables;
 
     public GLWallpaperService() {
-        this.components = new ArrayList<>();
+        this.resumables = new ArrayList<>();
+        this.interactables = new ArrayList<>();
     }
 
     class GLEngine extends Engine {
 		class WallpaperGLSurfaceView extends GLSurfaceView {
 			private static final String TAG = "WallpaperGLSurfaceView";
 
-			//TODO: implement onTouchEvent to reset Delorean back to center
+			@Override
+			public boolean onTouchEvent(MotionEvent event) {
+                final int x = (int) event.getX();
+                final int y = (int) event.getY();
+
+                switch (event.getAction() & MotionEvent.ACTION_MASK) {
+                    case MotionEvent.ACTION_DOWN:
+                        queueEvent(new Runnable() {
+                            @Override
+                            public void run() {
+                                stream(interactables).forEach(new Consumer<Interactable>() {
+                                    @Override
+                                    public void accept(Interactable interactable) {
+                                        interactable.onDown(x,y);
+                                    }
+                                });
+                            }
+                        });
+                        break;
+                }
+                return super.onTouchEvent(event);
+			}
 
             WallpaperGLSurfaceView(Context context) {
 				super(context);
@@ -76,7 +102,7 @@ public abstract class GLWallpaperService extends WallpaperService {
 
 			if (rendererHasBeenSet) {
 				if (visible) {
-                    stream(components).forEach(new Consumer<Resumable>() {
+                    stream(resumables).forEach(new Consumer<Resumable>() {
                         @Override
                         public void accept(Resumable resumable) {
                             resumable.onResume();
@@ -84,7 +110,7 @@ public abstract class GLWallpaperService extends WallpaperService {
                     });
 					glSurfaceView.onResume();
 				} else {
-                    stream(components).forEach(new Consumer<Resumable>() {
+                    stream(resumables).forEach(new Consumer<Resumable>() {
                         @Override
                         public void accept(Resumable resumable) {
                             resumable.onPause();
@@ -121,6 +147,10 @@ public abstract class GLWallpaperService extends WallpaperService {
 	}
 
     void addComponent(Resumable resumable) {
-        components.add(resumable);
+        resumables.add(resumable);
+    }
+
+    void addComponent(Interactable interactable) {
+        interactables.add(interactable);
     }
 }

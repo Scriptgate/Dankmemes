@@ -1,4 +1,4 @@
-package scriptgate.net.dankmemes.livewallpaper;
+package net.scriptgate.dankmemes.livewallpaper;
 
 
 import android.hardware.Sensor;
@@ -6,10 +6,9 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 
-
 import net.scriptgate.android.component.Resumable;
 
-import scriptgate.net.dankmemes.DankmemesRenderer;
+import net.scriptgate.dankmemes.DankmemesRenderer;
 
 import static java.lang.Math.cos;
 import static java.lang.Math.sin;

@@ -1,9 +1,9 @@
-package scriptgate.net.dankmemes;
+package net.scriptgate.dankmemes;
 
 import net.scriptgate.android.common.Point2D;
 import net.scriptgate.android.opengles.face.Point2DFace;
 
-import static scriptgate.net.dankmemes.Square.ELEMENTS_PER_FACE;
+import static net.scriptgate.dankmemes.Square.ELEMENTS_PER_FACE;
 
 
 class SquareDataFactory {

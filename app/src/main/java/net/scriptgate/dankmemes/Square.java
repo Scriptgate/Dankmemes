@@ -1,4 +1,4 @@
-package scriptgate.net.dankmemes;
+package net.scriptgate.dankmemes;
 
 
 import android.opengl.GLES20;
@@ -13,11 +13,7 @@ import net.scriptgate.android.opengles.program.Program;
 
 import java.nio.FloatBuffer;
 
-import static android.opengl.GLES20.GL_TEXTURE_2D;
-import static android.opengl.GLES20.GL_TEXTURE_MIN_FILTER;
-import static android.opengl.GLES20.GL_TRIANGLES;
-import static android.opengl.GLES20.glDrawArrays;
-import static android.opengl.GLES20.glTexParameteri;
+import static android.opengl.GLES20.*;
 import static net.scriptgate.android.nio.BufferHelper.allocateBuffer;
 import static net.scriptgate.android.opengles.program.UniformVariable.MVP_MATRIX;
 
