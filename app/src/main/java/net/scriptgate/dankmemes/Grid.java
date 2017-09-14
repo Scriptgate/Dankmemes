@@ -49,9 +49,9 @@ class Grid {
     }
 
 
-    void update() {
-        long time = SystemClock.uptimeMillis() % 10_000L;
-        final float distance = (0.3f / 10_000.0f) * ((int) time);
+    void update(long elapsedTime) {
+
+        final float distance = (1f / 500.0f) * ((int) elapsedTime);
 
         stream(grid).forEach(new Consumer<Square>() {
             @Override

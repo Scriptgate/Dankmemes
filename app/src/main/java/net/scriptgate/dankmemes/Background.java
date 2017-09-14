@@ -41,7 +41,7 @@ class Background {
         stream(background).forEach(new Consumer<Square>() {
             @Override
             public void accept(Square square) {
-                square.setScale(new Point3D(SCALE, SCALE, 1));
+                square.setScale(new Point3D(SCALE+0.01f, SCALE+0.01f, 1));
             }
         });
     }
@@ -50,9 +50,8 @@ class Background {
         stream(background).forEach(draw);
     }
 
-    void update() {
-        long time = SystemClock.uptimeMillis() % 10_000L;
-        final float distance = (0.03f / 10_000.0f) * ((int) time);
+    void update(long elapsedTime) {
+        final float distance = (1f / 2000.0f) * ((int) elapsedTime);
 
         stream(background).forEach(new Consumer<Square>() {
             @Override

@@ -13,6 +13,7 @@ import net.scriptgate.android.opengles.renderer.RendererBase;
 import java8.util.function.Consumer;
 
 import static android.opengl.GLES20.*;
+import static java.lang.System.nanoTime;
 import static net.scriptgate.android.common.Color.GREY;
 import static net.scriptgate.android.opengles.matrix.ViewMatrix.createViewBehindOrigin;
 import static net.scriptgate.android.opengles.program.AttributeVariable.COLOR;
@@ -79,15 +80,36 @@ public class DankmemesRenderer extends RendererBase {
                 square.draw(program, modelMatrix, viewMatrix, projectionMatrix, mvpMatrix);
             }
         };
-
     }
+
+    private static final int ticksPerRun = 60;
+    private static final long maximumTicksPerRun = 240;
+    private double accumulator = 0;
+
+    private long lastTime = nanoTime();
 
     @Override
     public void onDrawFrame() {
+
         glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
 
-        background.update();
-        grid.update();
+        long now = nanoTime();
+        double nsPerTick = 1_000_000_000.0 / ticksPerRun;
+        double unprocessed = (now - lastTime) / nsPerTick;
+        lastTime = now;
+
+        if (unprocessed > maximumTicksPerRun) {
+            unprocessed = maximumTicksPerRun;
+        }
+
+        accumulator += unprocessed;
+
+
+        while (accumulator >= 1) {
+            accumulator -= 1;
+            background.update((long) (nsPerTick / 1_000_000));
+            grid.update((long) (nsPerTick / 1_000_000));
+        }
 
         background.render(renderer);
         grid.render(renderer);
