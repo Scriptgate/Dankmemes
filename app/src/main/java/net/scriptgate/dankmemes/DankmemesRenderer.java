@@ -155,4 +155,12 @@ public class DankmemesRenderer extends RendererBase {
     public void reset() {
         delorean.reset();
     }
+
+    public void turnTitleOn() {
+        title.turnOn();
+    }
+
+    public void turnTitleOff() {
+        title.turnOff();
+    }
 }

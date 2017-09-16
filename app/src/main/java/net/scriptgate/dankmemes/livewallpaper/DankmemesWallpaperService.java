@@ -43,10 +43,14 @@ public class DankmemesWallpaperService extends GLWallpaperService {
                 }
 
                 @Override
-                public void onUp(float x, float y) {}
+                public void onUp(float x, float y) {
+                    renderer.turnTitleOff();
+                }
 
                 @Override
-                public void onMove(float x, float y) {}
+                public void onMove(float x, float y) {
+                    renderer.turnTitleOn();
+                }
             });
         }
 

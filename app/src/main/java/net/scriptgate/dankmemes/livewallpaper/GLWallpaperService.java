@@ -82,6 +82,23 @@ public abstract class GLWallpaperService extends WallpaperService {
                         }
                     });
                     break;
+                case MotionEvent.ACTION_UP:
+                case MotionEvent.ACTION_POINTER_UP:
+                    stream(interactables).forEach(new Consumer<Interactable>() {
+                        @Override
+                        public void accept(Interactable interactable) {
+                            interactable.onUp(x, y);
+                        }
+                    });
+                    break;
+                case MotionEvent.ACTION_MOVE:
+                    stream(interactables).forEach(new Consumer<Interactable>() {
+                        @Override
+                        public void accept(Interactable interactable) {
+                            interactable.onMove(x, y);
+                        }
+                    });
+                    break;
             }
             super.onTouchEvent(event);
         }

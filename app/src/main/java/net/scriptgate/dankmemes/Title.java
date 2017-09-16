@@ -18,6 +18,14 @@ class Title implements RenderableAsSquare, Updatable {
     private final Mode ON;
     private final Mode OFF;
 
+    void turnOn() {
+        mode = ON;
+    }
+
+    void turnOff() {
+        mode = OFF;
+    }
+
     private static class Mode {
 
         private final long timeSpentInMode;
@@ -83,6 +91,10 @@ class Title implements RenderableAsSquare, Updatable {
 
     @Override
     public void update(long elapsedTime) {
+
+    }
+
+    private void switchModeUsingTiming(long elapsedTime) {
         timeTillNextMode -= elapsedTime;
         if (timeTillNextMode <= 0) {
             mode = isOff() ? ON : OFF;
