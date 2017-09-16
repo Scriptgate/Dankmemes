@@ -32,7 +32,7 @@ class Grid {
         );
         float[] verticesData = new float[Square.ELEMENTS_PER_FACE * face.getNumberOfElements()];
         face.addFaceToArray(verticesData, 0);
-        float[] textureData = SquareDataFactory.generateTextureData(SCALE, SCALE / 2);
+        float[] textureData = SquareDataFactory.generateTextureData(10, 2);
 
         grid.add(Square.createSquare(new Point3D(), new Point3D(), verticesData, textureData));
         grid.add(Square.createSquare(new Point3D(0,0,-SCALE), new Point3D(), verticesData, textureData));
@@ -51,7 +51,7 @@ class Grid {
 
     void update(long elapsedTime) {
 
-        final float distance = (1f / 500.0f) * ((int) elapsedTime);
+        final float distance = elapsedTime / 200f;
 
         stream(grid).forEach(new Consumer<Square>() {
             @Override

@@ -53,11 +53,16 @@ public class DankmemesRenderer extends RendererBase {
         glEnable(GL_BLEND);
 
         final ModelMatrix modelMatrix = new ModelMatrix();
-        final ViewMatrix viewMatrix = createViewBehindOrigin();
+
+        Point3D eye = new Point3D(0.0F, 1.0F, 1.5F);
+        Point3D look = new Point3D(0.0F, 1.0F, -5.0F);
+        Point3D up = new Point3D(0.0F, 1.0F, 0.0F);
+        final ViewMatrix viewMatrix = new ViewMatrix(eye, look, up);
+
+
         final ModelViewProjectionMatrix mvpMatrix = new ModelViewProjectionMatrix();
 
         viewMatrix.onSurfaceCreated();
-        viewMatrix.translate(new Point3D(0, -1, 0));
 
         background.loadTexture(activityContext);
         grid.loadTexture(activityContext);
