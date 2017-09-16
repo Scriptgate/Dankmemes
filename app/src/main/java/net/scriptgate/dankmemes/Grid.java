@@ -2,7 +2,6 @@ package net.scriptgate.dankmemes;
 
 
 import android.content.Context;
-import android.os.SystemClock;
 
 import net.scriptgate.android.common.Point3D;
 import net.scriptgate.android.opengles.face.Point3DFace;
@@ -15,7 +14,7 @@ import java8.util.function.Consumer;
 
 import static java8.util.stream.StreamSupport.stream;
 
-class Grid {
+class Grid implements RenderableAsSquare {
 
     private static final float SCALE = 25;
 
@@ -44,7 +43,8 @@ class Grid {
         }
     }
 
-    void render(Consumer<Square> draw) {
+    @Override
+    public void render(Consumer<Square> draw) {
         stream(grid).forEach(draw);
     }
 
@@ -65,7 +65,8 @@ class Grid {
 
     }
 
-    void loadTexture(Context context) {
+    @Override
+    public void loadTexture(Context context) {
         final int texture = TextureHelper.loadTexture(context, R.drawable.grid);
         stream(grid).forEach(new Consumer<Square>() {
             @Override

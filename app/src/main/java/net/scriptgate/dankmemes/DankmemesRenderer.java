@@ -54,9 +54,9 @@ public class DankmemesRenderer extends RendererBase {
 
         final ModelMatrix modelMatrix = new ModelMatrix();
 
-        Point3D eye = new Point3D(0.0F, 1.0F, 1.5F);
-        Point3D look = new Point3D(0.0F, 1.0F, -5.0F);
-        Point3D up = new Point3D(0.0F, 1.0F, 0.0F);
+        Point3D eye = new Point3D(0, 1, 1.5f);
+        Point3D look = new Point3D(0, 1, -5);
+        Point3D up = new Point3D(0, 1, 0);
         final ViewMatrix viewMatrix = new ViewMatrix(eye, look, up);
 
 
@@ -116,11 +116,12 @@ public class DankmemesRenderer extends RendererBase {
             grid.update((long) (nsPerTick / 1_000_000));
         }
 
+        delorean.transform(deltaRotationVector);
+
         background.render(renderer);
         grid.render(renderer);
         horizon.render(renderer);
         title.render(renderer);
-        delorean.transform(deltaRotationVector);
         delorean.render(renderer);
     }
 

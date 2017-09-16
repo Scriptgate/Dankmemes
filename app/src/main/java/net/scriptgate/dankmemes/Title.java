@@ -13,7 +13,7 @@ import java8.util.function.Consumer;
 import static net.scriptgate.dankmemes.Square.ELEMENTS_PER_FACE;
 import static net.scriptgate.dankmemes.Square.createSquare;
 
-class Title {
+class Title implements RenderableAsSquare {
 
     boolean isOff() {
         return mode == OFF;
@@ -68,14 +68,16 @@ class Title {
         mode = OFF;
     }
 
-    void loadTexture(Context context) {
+    @Override
+    public void loadTexture(Context context) {
         int texture = TextureHelper.loadTexture(context, R.drawable.title);
 
         ON.setTexture(texture);
         OFF.setTexture(texture);
     }
 
-    void render(Consumer<Square> renderer) {
+    @Override
+    public void render(Consumer<Square> renderer) {
         renderer.accept(mode.model);
     }
 }

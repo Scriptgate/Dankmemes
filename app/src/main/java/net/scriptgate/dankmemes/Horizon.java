@@ -9,7 +9,7 @@ import net.scriptgate.android.opengles.texture.TextureHelper;
 
 import java8.util.function.Consumer;
 
-class Horizon {
+class Horizon implements RenderableAsSquare {
 
 
     private final Square model;
@@ -36,11 +36,13 @@ class Horizon {
 
     }
 
-    void loadTexture(Context context) {
+    @Override
+    public void loadTexture(Context context) {
         int texture = TextureHelper.loadTexture(context, R.drawable.horizon);
         model.setTexture(texture);
     }
 
+    @Override
     public void render(Consumer<Square> renderer) {
         renderer.accept(model);
     }

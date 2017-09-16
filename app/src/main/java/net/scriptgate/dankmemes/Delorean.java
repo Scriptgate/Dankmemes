@@ -12,7 +12,7 @@ import java8.util.function.Consumer;
 import static net.scriptgate.dankmemes.Square.ELEMENTS_PER_FACE;
 import static net.scriptgate.dankmemes.Square.createSquare;
 
-class Delorean {
+class Delorean implements RenderableAsSquare {
 
     private static final Point3D CENTER = new Point3D(-0.75f, 1, 0.0f);
 
@@ -39,7 +39,8 @@ class Delorean {
         model.setScale(new Point3D(1.5f, 1.5f, 1));
     }
 
-    void loadTexture(Context context) {
+    @Override
+    public void loadTexture(Context context) {
         int texture = TextureHelper.loadTexture(context, R.drawable.delorean);
         model.setTexture(texture);
     }
@@ -58,7 +59,8 @@ class Delorean {
 
     }
 
-    void render(Consumer<Square> renderer) {
+    @Override
+    public void render(Consumer<Square> renderer) {
         renderer.accept(model);
     }
 
