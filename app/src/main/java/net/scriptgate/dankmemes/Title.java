@@ -15,22 +15,18 @@ import static net.scriptgate.dankmemes.Square.createSquare;
 
 class Title implements RenderableAsSquare, Updatable {
 
-    boolean isOff() {
-        return mode == OFF;
-    }
-
-    void turnOn() {
-        mode = ON;
-    }
-
-    void turnOff() {
-        mode = OFF;
-    }
+    private final Mode ON;
+    private final Mode OFF;
 
     private static class Mode {
 
+        private final long timeSpentInMode;
         private final Square model;
-        Mode(float offsetX, float offsetY) {
+
+
+        Mode(long timeSpentInMode, Point2D textureOffset) {
+            this.timeSpentInMode = timeSpentInMode;
+
             float width = 1.0f;
             float height = 0.25f;
 
@@ -47,8 +43,8 @@ class Title implements RenderableAsSquare, Updatable {
                     new Point3D(-1f, 1.4f, 0.0f),
                     new Point3D(180.0f, 0.0f, 0.0f),
                     verticesData,
-                    SquareDataFactory.generateTextureData(1.0f, 0.5f, new Point2D(offsetX, offsetY)));
-            model.setScale(new Point3D(2,2,1));
+                    SquareDataFactory.generateTextureData(1.0f, 0.5f, textureOffset));
+            model.setScale(new Point3D(2, 2, 1));
         }
 
         void setTexture(int texture) {
@@ -56,16 +52,20 @@ class Title implements RenderableAsSquare, Updatable {
         }
 
     }
-    private final Mode ON;
 
-    private final Mode OFF;
     private Mode mode;
+    private long timeTillNextMode;
 
     Title() {
-        ON = new Mode(0, 0.5f);
-        OFF = new Mode(0, 0);
+        ON = new Mode(500, new Point2D(0, 0.5f));
+        OFF = new Mode(5000, new Point2D(0, 0));
 
         mode = OFF;
+        timeTillNextMode = mode.timeSpentInMode;
+    }
+
+    private boolean isOff() {
+        return mode == OFF;
     }
 
     @Override
@@ -81,21 +81,12 @@ class Title implements RenderableAsSquare, Updatable {
         renderer.accept(mode.model);
     }
 
-    private static final long TIME_SPENT_OFF = 1000;
-    private static final long TIME_SPENT_ON = 1000;
-    private long timeTillNextMode = TIME_SPENT_OFF;
-
     @Override
     public void update(long elapsedTime) {
         timeTillNextMode -= elapsedTime;
-        if(timeTillNextMode <= 0) {
-            if(mode == OFF) {
-                mode = ON;
-                timeTillNextMode += TIME_SPENT_ON;
-            } else {
-                mode = OFF;
-                timeTillNextMode += TIME_SPENT_OFF;
-            }
+        if (timeTillNextMode <= 0) {
+            mode = isOff() ? ON : OFF;
+            timeTillNextMode += Math.random() * mode.timeSpentInMode;
         }
     }
 }
