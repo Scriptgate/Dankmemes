@@ -60,6 +60,7 @@ public class DankmemesRenderer extends RendererBase {
         updatables = new ArrayList<>();
         updatables.add(background);
         updatables.add(grid);
+        updatables.add(title);
     }
 
     @Override

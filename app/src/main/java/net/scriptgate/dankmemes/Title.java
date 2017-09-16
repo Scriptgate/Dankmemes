@@ -13,7 +13,7 @@ import java8.util.function.Consumer;
 import static net.scriptgate.dankmemes.Square.ELEMENTS_PER_FACE;
 import static net.scriptgate.dankmemes.Square.createSquare;
 
-class Title implements RenderableAsSquare {
+class Title implements RenderableAsSquare, Updatable {
 
     boolean isOff() {
         return mode == OFF;
@@ -28,8 +28,8 @@ class Title implements RenderableAsSquare {
     }
 
     private static class Mode {
-        private final Square model;
 
+        private final Square model;
         Mode(float offsetX, float offsetY) {
             float width = 1.0f;
             float height = 0.25f;
@@ -54,11 +54,11 @@ class Title implements RenderableAsSquare {
         void setTexture(int texture) {
             this.model.setTexture(texture);
         }
+
     }
-
     private final Mode ON;
-    private final Mode OFF;
 
+    private final Mode OFF;
     private Mode mode;
 
     Title() {
@@ -79,5 +79,23 @@ class Title implements RenderableAsSquare {
     @Override
     public void render(Consumer<Square> renderer) {
         renderer.accept(mode.model);
+    }
+
+    private static final long TIME_SPENT_OFF = 1000;
+    private static final long TIME_SPENT_ON = 1000;
+    private long timeTillNextMode = TIME_SPENT_OFF;
+
+    @Override
+    public void update(long elapsedTime) {
+        timeTillNextMode -= elapsedTime;
+        if(timeTillNextMode <= 0) {
+            if(mode == OFF) {
+                mode = ON;
+                timeTillNextMode += TIME_SPENT_ON;
+            } else {
+                mode = OFF;
+                timeTillNextMode += TIME_SPENT_OFF;
+            }
+        }
     }
 }
