@@ -10,12 +10,15 @@ import net.scriptgate.android.opengles.matrix.ViewMatrix;
 import net.scriptgate.android.opengles.program.Program;
 import net.scriptgate.android.opengles.renderer.RendererBase;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import java8.util.function.Consumer;
 
 import static android.opengl.GLES20.*;
 import static java.lang.System.nanoTime;
+import static java8.util.stream.StreamSupport.stream;
 import static net.scriptgate.android.common.Color.GREY;
-import static net.scriptgate.android.opengles.matrix.ViewMatrix.createViewBehindOrigin;
 import static net.scriptgate.android.opengles.program.AttributeVariable.COLOR;
 import static net.scriptgate.android.opengles.program.AttributeVariable.POSITION;
 import static net.scriptgate.android.opengles.program.ProgramBuilder.program;
@@ -34,6 +37,8 @@ public class DankmemesRenderer extends RendererBase {
     private float[] deltaRotationVector = new float[4];
     private Consumer<Square> renderer;
 
+    private List<RenderableAsSquare> renderables;
+
     public DankmemesRenderer(Context activityContext) {
         super(ProjectionMatrix.createProjectionMatrix(150, 1));
         this.activityContext = activityContext;
@@ -43,6 +48,12 @@ public class DankmemesRenderer extends RendererBase {
         horizon = new Horizon();
         title = new Title();
         delorean = new Delorean();
+        renderables = new ArrayList<>();
+        renderables.add(background);
+        renderables.add(grid);
+        renderables.add(horizon);
+        renderables.add(title);
+        renderables.add(delorean);
     }
 
     @Override
@@ -64,11 +75,12 @@ public class DankmemesRenderer extends RendererBase {
 
         viewMatrix.onSurfaceCreated();
 
-        background.loadTexture(activityContext);
-        grid.loadTexture(activityContext);
-        horizon.loadTexture(activityContext);
-        title.loadTexture(activityContext);
-        delorean.loadTexture(activityContext);
+        stream(renderables).forEach(new Consumer<RenderableAsSquare>() {
+            @Override
+            public void accept(RenderableAsSquare renderableAsSquare) {
+                renderableAsSquare.loadTexture(activityContext);
+            }
+        });
 
         glGenerateMipmap(GL_TEXTURE_2D);
 
@@ -118,11 +130,12 @@ public class DankmemesRenderer extends RendererBase {
 
         delorean.transform(deltaRotationVector);
 
-        background.render(renderer);
-        grid.render(renderer);
-        horizon.render(renderer);
-        title.render(renderer);
-        delorean.render(renderer);
+        stream(renderables).forEach(new Consumer<RenderableAsSquare>() {
+            @Override
+            public void accept(RenderableAsSquare renderableAsSquare) {
+                renderableAsSquare.render(renderer);
+            }
+        });
     }
 
     public void setGyroscopeValues(float[] deltaRotationVector) {
