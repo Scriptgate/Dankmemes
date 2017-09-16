@@ -14,7 +14,7 @@ import java8.util.function.Consumer;
 
 import static java8.util.stream.StreamSupport.stream;
 
-class Background implements RenderableAsSquare {
+class Background implements RenderableAsSquare, Updatable {
 
     private static final float SCALE = 50;
 
@@ -50,7 +50,8 @@ class Background implements RenderableAsSquare {
         stream(background).forEach(draw);
     }
 
-    void update(long elapsedTime) {
+    @Override
+    public void update(long elapsedTime) {
         final float distance = (1f / 2000.0f) * ((int) elapsedTime);
 
         stream(background).forEach(new Consumer<Square>() {

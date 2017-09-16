@@ -14,7 +14,7 @@ import java8.util.function.Consumer;
 
 import static java8.util.stream.StreamSupport.stream;
 
-class Grid implements RenderableAsSquare {
+class Grid implements RenderableAsSquare, Updatable {
 
     private static final float SCALE = 25;
 
@@ -49,7 +49,8 @@ class Grid implements RenderableAsSquare {
     }
 
 
-    void update(long elapsedTime) {
+    @Override
+    public void update(long elapsedTime) {
 
         final float distance = elapsedTime / 200f;
 

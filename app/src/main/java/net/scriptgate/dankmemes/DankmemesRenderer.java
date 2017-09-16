@@ -38,6 +38,7 @@ public class DankmemesRenderer extends RendererBase {
     private Consumer<Square> renderer;
 
     private List<RenderableAsSquare> renderables;
+    private List<Updatable> updatables;
 
     public DankmemesRenderer(Context activityContext) {
         super(ProjectionMatrix.createProjectionMatrix(150, 1));
@@ -48,12 +49,17 @@ public class DankmemesRenderer extends RendererBase {
         horizon = new Horizon();
         title = new Title();
         delorean = new Delorean();
+
         renderables = new ArrayList<>();
         renderables.add(background);
         renderables.add(grid);
         renderables.add(horizon);
         renderables.add(title);
         renderables.add(delorean);
+
+        updatables = new ArrayList<>();
+        updatables.add(background);
+        updatables.add(grid);
     }
 
     @Override
@@ -111,7 +117,7 @@ public class DankmemesRenderer extends RendererBase {
         glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
 
         long now = nanoTime();
-        double nsPerTick = 1_000_000_000.0 / ticksPerRun;
+        final double nsPerTick = 1_000_000_000.0 / ticksPerRun;
         double unprocessed = (now - lastTime) / nsPerTick;
         lastTime = now;
 
@@ -121,11 +127,14 @@ public class DankmemesRenderer extends RendererBase {
 
         accumulator += unprocessed;
 
-
         while (accumulator >= 1) {
             accumulator -= 1;
-            background.update((long) (nsPerTick / 1_000_000));
-            grid.update((long) (nsPerTick / 1_000_000));
+            stream(updatables).forEach(new Consumer<Updatable>() {
+                @Override
+                public void accept(Updatable updatable) {
+                    updatable.update((long) (nsPerTick / 1_000_000));
+                }
+            });
         }
 
         delorean.transform(deltaRotationVector);
