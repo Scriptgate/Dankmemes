@@ -6,6 +6,7 @@ import android.hardware.SensorManager;
 import android.service.wallpaper.WallpaperService;
 import android.view.SurfaceHolder;
 
+import net.scriptgate.android.component.Interactable;
 import net.scriptgate.android.opengles.activity.adapter.GLSurfaceViewAdapter;
 
 import net.scriptgate.dankmemes.DankmemesRenderer;
@@ -23,7 +24,7 @@ public class DankmemesWallpaperService extends GLWallpaperService {
         public void onCreate(SurfaceHolder surfaceHolder) {
             super.onCreate(surfaceHolder);
 
-            DankmemesRenderer renderer = new DankmemesRenderer(DankmemesWallpaperService.this);
+            final DankmemesRenderer renderer = new DankmemesRenderer(DankmemesWallpaperService.this);
 
             if (supportsOpenGLES20()) {
                 setEGLContextClientVersion(2);
@@ -35,6 +36,18 @@ public class DankmemesWallpaperService extends GLWallpaperService {
 
             SensorManager sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
             addComponent(new SensorService(sensorManager, renderer));
+            addComponent(new Interactable() {
+                @Override
+                public void onDown(float x, float y) {
+                    renderer.reset();
+                }
+
+                @Override
+                public void onUp(float x, float y) {}
+
+                @Override
+                public void onMove(float x, float y) {}
+            });
         }
 
         private boolean supportsOpenGLES20() {
