@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Dankmemes</string>
     <string name="wallpaper">Dankmemes Wallpaper</string>
+    <string name="switching_wallpaper">Switching Dankmemes Wallpaper</string>
 </resources>
