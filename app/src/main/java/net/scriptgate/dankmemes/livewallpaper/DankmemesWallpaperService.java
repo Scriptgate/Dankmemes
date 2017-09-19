@@ -3,6 +3,7 @@ package net.scriptgate.dankmemes.livewallpaper;
 
 import android.app.ActivityManager;
 import android.hardware.SensorManager;
+import android.preference.PreferenceManager;
 import android.service.wallpaper.WallpaperService;
 import android.view.SurfaceHolder;
 
@@ -12,9 +13,13 @@ import net.scriptgate.android.opengles.activity.adapter.GLSurfaceViewAdapter;
 import net.scriptgate.dankmemes.DankmemesRenderer;
 
 public class DankmemesWallpaperService extends GLWallpaperService {
+    private static final String SETTINGS_KEY = "use_gl_surface_view";
 
     @Override
     public WallpaperService.Engine onCreateEngine() {
+        boolean useGlSurfaceView = PreferenceManager.getDefaultSharedPreferences(DankmemesWallpaperService.this).getBoolean(SETTINGS_KEY, true);
+        System.out.println(SETTINGS_KEY + ": " + useGlSurfaceView);
+
         return new OpenGLES2Engine();
     }
 

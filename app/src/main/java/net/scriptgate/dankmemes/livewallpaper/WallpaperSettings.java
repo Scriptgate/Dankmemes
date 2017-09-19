@@ -1,4 +1,4 @@
-package net.scriptgate.dankmemes.switchinglivewallpaper;
+package net.scriptgate.dankmemes.livewallpaper;
 
 import android.os.Bundle;
 import android.preference.PreferenceActivity;

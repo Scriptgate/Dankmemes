@@ -8,7 +8,7 @@
         android:theme="@style/AppTheme">
 
         <service
-            android:name="net.scriptgate.dankmemes.livewallpaper.DankmemesWallpaperService"
+            android:name=".livewallpaper.DankmemesWallpaperService"
             android:label="@string/wallpaper"
             android:permission="android.permission.BIND_WALLPAPER" >
             <intent-filter>
@@ -19,20 +19,8 @@
                 android:name="android.service.wallpaper"
                 android:resource="@xml/wallpaper" />
         </service>
-        <service
-            android:name=".switchinglivewallpaper.OpenGLES2WallpaperService"
-            android:label="@string/switching_wallpaper"
-            android:permission="android.permission.BIND_WALLPAPER" >
-            <intent-filter>
-                <action android:name="android.service.wallpaper.WallpaperService" />
-            </intent-filter>
-
-            <meta-data
-                android:name="android.service.wallpaper"
-                android:resource="@xml/wallpaper" />
-        </service>
         <activity
-            android:name=".switchinglivewallpaper.WallpaperSettings"
+            android:name=".livewallpaper.WallpaperSettings"
             android:exported="true"
             android:label="@string/switching_wallpaper"
             android:permission="android.permission.BIND_WALLPAPER"
