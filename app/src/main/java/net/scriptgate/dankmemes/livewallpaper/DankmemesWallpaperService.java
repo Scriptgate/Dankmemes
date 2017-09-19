@@ -2,6 +2,7 @@ package net.scriptgate.dankmemes.livewallpaper;
 
 
 import android.app.ActivityManager;
+import android.content.SharedPreferences;
 import android.hardware.SensorManager;
 import android.preference.PreferenceManager;
 import android.service.wallpaper.WallpaperService;
@@ -11,25 +12,33 @@ import net.scriptgate.android.component.Interactable;
 import net.scriptgate.android.opengles.activity.adapter.GLSurfaceViewAdapter;
 
 import net.scriptgate.dankmemes.DankmemesRenderer;
+import net.scriptgate.dankmemes.Settings;
 
 public class DankmemesWallpaperService extends GLWallpaperService {
-    private static final String SETTINGS_KEY = "use_gl_surface_view";
 
     @Override
     public WallpaperService.Engine onCreateEngine() {
-        boolean useGlSurfaceView = PreferenceManager.getDefaultSharedPreferences(DankmemesWallpaperService.this).getBoolean(SETTINGS_KEY, true);
-        System.out.println(SETTINGS_KEY + ": " + useGlSurfaceView);
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
-        return new OpenGLES2Engine();
+        Settings settings = new Settings()
+                .setTitleVisible(sharedPreferences.getBoolean("show_title", true));
+
+        return new OpenGLES2Engine(settings);
     }
 
     private class OpenGLES2Engine extends GLEngine {
+
+        private Settings settings;
+
+        private OpenGLES2Engine(Settings settings) {
+            this.settings = settings;
+        }
 
         @Override
         public void onCreate(SurfaceHolder surfaceHolder) {
             super.onCreate(surfaceHolder);
 
-            final DankmemesRenderer renderer = new DankmemesRenderer(DankmemesWallpaperService.this);
+            final DankmemesRenderer renderer = new DankmemesRenderer(DankmemesWallpaperService.this, settings);
 
             if (supportsOpenGLES20()) {
                 setEGLContextClientVersion(2);

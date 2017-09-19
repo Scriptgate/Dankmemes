@@ -17,7 +17,7 @@ public class WallpaperSettings extends PreferenceActivity {
 
     @Override
     protected boolean isValidFragment(String fragmentName) {
-        return Prefs1Fragment.class.getName().equals(fragmentName);
+        return ToggleComponentsFragment.class.getName().equals(fragmentName);
     }
 
     /**
@@ -29,19 +29,19 @@ public class WallpaperSettings extends PreferenceActivity {
     }
 
     /**
-     * This fragment shows the preferences for the first header.
+     * This fragment shows the components preferences.
      */
-    public static class Prefs1Fragment extends PreferenceFragment {
+    public static class ToggleComponentsFragment extends PreferenceFragment {
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
 
             // Make sure default values are applied.
             // In a real app, you would want this in a shared function that is used to retrieve the SharedPreferences wherever they are needed.
-            PreferenceManager.setDefaultValues(getActivity(), R.xml.preferences, false);
+            PreferenceManager.setDefaultValues(getActivity(), R.xml.components_preferences, false);
 
             // Load the preferences from an XML resource
-            addPreferencesFromResource(R.xml.preferences);
+            addPreferencesFromResource(R.xml.components_preferences);
         }
     }
 

@@ -26,10 +26,7 @@ import static net.scriptgate.android.opengles.program.ProgramBuilder.program;
 public class DankmemesRenderer extends RendererBase {
 
 
-    private Background background;
-    private Grid grid;
-    private Horizon horizon;
-    private Title title;
+    private Title title = null;
     private Delorean delorean;
 
     private Context activityContext;
@@ -40,27 +37,32 @@ public class DankmemesRenderer extends RendererBase {
     private List<RenderableAsSquare> renderables;
     private List<Updatable> updatables;
 
-    public DankmemesRenderer(Context activityContext) {
+    public DankmemesRenderer(Context activityContext, Settings settings) {
         super(ProjectionMatrix.createProjectionMatrix(150, 1));
         this.activityContext = activityContext;
-
-        background = new Background();
-        grid = new Grid();
-        horizon = new Horizon();
-        title = new Title();
-        delorean = new Delorean();
-
         renderables = new ArrayList<>();
-        renderables.add(background);
-        renderables.add(grid);
-        renderables.add(horizon);
-        renderables.add(title);
-        renderables.add(delorean);
-
         updatables = new ArrayList<>();
+
+
+        Background background = new Background();
+        renderables.add(background);
         updatables.add(background);
+
+        Grid grid = new Grid();
+        renderables.add(grid);
         updatables.add(grid);
-        updatables.add(title);
+
+        Horizon horizon = new Horizon();
+        renderables.add(horizon);
+
+        if(settings.isTitleVisible()) {
+            title = new Title();
+            renderables.add(title);
+            updatables.add(title);
+        }
+
+        delorean = new Delorean();
+        renderables.add(delorean);
     }
 
     @Override
@@ -157,10 +159,14 @@ public class DankmemesRenderer extends RendererBase {
     }
 
     public void turnTitleOn() {
-        title.turnOn();
+        if(title != null) {
+            title.turnOn();
+        }
     }
 
     public void turnTitleOff() {
-        title.turnOff();
+        if(title != null) {
+            title.turnOff();
+        }
     }
 }
