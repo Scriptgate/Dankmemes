@@ -1,63 +1,50 @@
 package net.scriptgate.dankmemes.switchinglivewallpaper;
 
 import android.app.ActivityManager;
-import android.content.Context;
-import android.content.pm.ConfigurationInfo;
 import android.opengl.GLSurfaceView.Renderer;
 import android.preference.PreferenceManager;
 import android.service.wallpaper.WallpaperService;
 import android.view.SurfaceHolder;
 
-public abstract class OpenGLES2WallpaperService extends GLWallpaperService {
-	private static final String SETTINGS_KEY = "use_gl_surface_view";
+import net.scriptgate.dankmemes.DankmemesRenderer;
 
-	@Override
-	public WallpaperService.Engine onCreateEngine() {
-		if (PreferenceManager.getDefaultSharedPreferences(
-				OpenGLES2WallpaperService.this).getBoolean(SETTINGS_KEY, true)) {
-			return new ES2GLSurfaceViewEngine();
-		} else {
-			return new ES2RgbrnGLEngine();
-		}
-	}
+import static net.scriptgate.android.opengles.activity.adapter.GLSurfaceViewAdapter.adaptToGLSurfaceViewRenderer;
 
-	class ES2GLSurfaceViewEngine extends GLWallpaperService.GLSurfaceViewEngine {
+public class OpenGLES2WallpaperService extends GLWallpaperService {
+    private static final String SETTINGS_KEY = "use_gl_surface_view";
 
-		@Override
-		public void onCreate(SurfaceHolder surfaceHolder) {
-			super.onCreate(surfaceHolder);
-			init(this);
-		}
-	}
+    @Override
+    public WallpaperService.Engine onCreateEngine() {
+        boolean useGlSurfaceView = PreferenceManager.getDefaultSharedPreferences(OpenGLES2WallpaperService.this).getBoolean(SETTINGS_KEY, true);
 
-	class ES2RgbrnGLEngine extends GLWallpaperService.RgbrnGLEngine {
+        System.out.println(SETTINGS_KEY + ": " + useGlSurfaceView);
+        return new ES2GLSurfaceViewEngine();
+    }
 
-		@Override
-		public void onCreate(SurfaceHolder surfaceHolder) {
-			super.onCreate(surfaceHolder);
-			init(this);
-		}
-	}
+    private class ES2GLSurfaceViewEngine extends GLWallpaperService.GLSurfaceViewEngine {
 
-	void init(OpenGLEngine engine) {
-		// Check if the system supports OpenGL ES 2.0.
-		final ActivityManager activityManager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
-		final ConfigurationInfo configurationInfo = activityManager
-				.getDeviceConfigurationInfo();
-		final boolean supportsEs2 = configurationInfo.reqGlEsVersion >= 0x20000;
+        @Override
+        public void onCreate(SurfaceHolder surfaceHolder) {
+            super.onCreate(surfaceHolder);
+            init(this);
+        }
+    }
 
-		if (supportsEs2) {
-			// Request an OpenGL ES 2.0 compatible context.
-			engine.setEGLContextClientVersion(2);
+    void init(OpenGLEngine engine) {
+        if (supportsOpenGLES20()) {
+            engine.setEGLContextClientVersion(2);
+            engine.setRenderer(getNewRenderer());
+        } else {
+            throw new UnsupportedOperationException("This activity requires OpenGL ES 2.0");
+        }
+    }
 
-			// Set the renderer to our user-defined renderer.
-			engine.setRenderer(getNewRenderer());
-		} else {
-			// This is where you could create an OpenGL ES 1.x compatible
-			// renderer if you wanted to support both ES 1 and ES 2.
-			return;
-		}
-	}
+    private boolean supportsOpenGLES20() {
+        ActivityManager activityManager = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
+        return activityManager.getDeviceConfigurationInfo().reqGlEsVersion >= 0x20000;
+    }
 
-	abstract Renderer getNewRenderer();
+    Renderer getNewRenderer() {
+        return adaptToGLSurfaceViewRenderer(new DankmemesRenderer(this));
+    }
 }

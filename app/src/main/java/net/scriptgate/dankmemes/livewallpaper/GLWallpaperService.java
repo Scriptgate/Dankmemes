@@ -4,7 +4,6 @@ import android.content.Context;
 import android.opengl.GLSurfaceView;
 import android.opengl.GLSurfaceView.Renderer;
 import android.service.wallpaper.WallpaperService;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 
@@ -15,23 +14,14 @@ import net.scriptgate.android.component.Resumable;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import java8.util.function.BiConsumer;
 import java8.util.function.Consumer;
 
-import net.scriptgate.dankmemes.LoggerConfig;
+
 
 import static java8.util.stream.StreamSupport.stream;
+import static net.scriptgate.dankmemes.LoggerConfig.DEBUG;
 
 public abstract class GLWallpaperService extends WallpaperService {
-
-    private static BiConsumer<String, String> LOG = new BiConsumer<String, String>() {
-        @Override
-        public void accept(String TAG, String message) {
-            if (LoggerConfig.ON) {
-                Log.d(TAG, message);
-            }
-        }
-    };
 
     Collection<Resumable> resumables;
     Collection<Interactable> interactables;
@@ -47,18 +37,17 @@ public abstract class GLWallpaperService extends WallpaperService {
 
             WallpaperGLSurfaceView(Context context) {
                 super(context);
-
-                LOG.accept(TAG, "WallpaperGLSurfaceView(" + context + ")");
+                DEBUG.accept(TAG, "WallpaperGLSurfaceView(" + context + ")");
             }
 
             @Override
             public SurfaceHolder getHolder() {
-                LOG.accept(TAG, "getHolder(): returning " + getSurfaceHolder());
+                DEBUG.accept(TAG, "getHolder(): returning " + getSurfaceHolder());
                 return getSurfaceHolder();
             }
 
             public void onDestroy() {
-                LOG.accept(TAG, "onDestroy()");
+                DEBUG.accept(TAG, "onDestroy()");
                 super.onDetachedFromWindow();
             }
         }
@@ -105,7 +94,7 @@ public abstract class GLWallpaperService extends WallpaperService {
 
         @Override
         public void onCreate(SurfaceHolder surfaceHolder) {
-            LOG.accept(TAG, "onCreate(" + surfaceHolder + ")");
+            DEBUG.accept(TAG, "onCreate(" + surfaceHolder + ")");
             super.onCreate(surfaceHolder);
 
             glSurfaceView = new WallpaperGLSurfaceView(GLWallpaperService.this);
@@ -113,7 +102,7 @@ public abstract class GLWallpaperService extends WallpaperService {
 
         @Override
         public void onVisibilityChanged(boolean visible) {
-            LOG.accept(TAG, "onVisibilityChanged(" + visible + ")");
+            DEBUG.accept(TAG, "onVisibilityChanged(" + visible + ")");
 
             super.onVisibilityChanged(visible);
 
@@ -140,25 +129,25 @@ public abstract class GLWallpaperService extends WallpaperService {
 
         @Override
         public void onDestroy() {
-            LOG.accept(TAG, "onDestroy()");
+            DEBUG.accept(TAG, "onDestroy()");
 
             super.onDestroy();
             glSurfaceView.onDestroy();
         }
 
         void setRenderer(Renderer renderer) {
-            LOG.accept(TAG, "setRenderer(" + renderer + ")");
+            DEBUG.accept(TAG, "setRenderer(" + renderer + ")");
             glSurfaceView.setRenderer(renderer);
             rendererHasBeenSet = true;
         }
 
         void setPreserveEGLContextOnPause(boolean preserve) {
-            LOG.accept(TAG, "setPreserveEGLContextOnPause(" + preserve + ")");
+            DEBUG.accept(TAG, "setPreserveEGLContextOnPause(" + preserve + ")");
             glSurfaceView.setPreserveEGLContextOnPause(preserve);
         }
 
         void setEGLContextClientVersion(int version) {
-            LOG.accept(TAG, "setEGLContextClientVersion(" + version + ")");
+            DEBUG.accept(TAG, "setEGLContextClientVersion(" + version + ")");
             glSurfaceView.setEGLContextClientVersion(version);
         }
     }
