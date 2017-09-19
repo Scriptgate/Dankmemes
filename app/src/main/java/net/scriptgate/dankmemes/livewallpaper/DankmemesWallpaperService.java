@@ -44,6 +44,7 @@ public class DankmemesWallpaperService extends GLWallpaperService {
             addComponent(new Interactable() {
                 @Override
                 public void onDown(float x, float y) {
+                    renderer.turnTitleOn();
                     renderer.reset();
                 }
 
