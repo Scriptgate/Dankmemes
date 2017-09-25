@@ -1,5 +1,6 @@
 package net.scriptgate.dankmemes.livewallpaper;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
@@ -17,7 +18,7 @@ public class WallpaperSettings extends PreferenceActivity {
 
     @Override
     protected boolean isValidFragment(String fragmentName) {
-        return ToggleComponentsFragment.class.getName().equals(fragmentName);
+        return ToggleVisibilityFragment.class.getName().equals(fragmentName);
     }
 
     /**
@@ -31,7 +32,7 @@ public class WallpaperSettings extends PreferenceActivity {
     /**
      * This fragment shows the components preferences.
      */
-    public static class ToggleComponentsFragment extends PreferenceFragment {
+    public static class ToggleVisibilityFragment extends PreferenceFragment {
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
@@ -42,6 +43,22 @@ public class WallpaperSettings extends PreferenceActivity {
 
             // Load the preferences from an XML resource
             addPreferencesFromResource(R.xml.components_preferences);
+        }
+
+        @Override
+        public void onResume() {
+            super.onResume();
+            Preferences.registerListener(getPreferences());
+        }
+
+        @Override
+        public void onPause() {
+            super.onPause();
+            Preferences.unregisterListener(getPreferences());
+        }
+
+        private SharedPreferences getPreferences() {
+            return getPreferenceScreen().getSharedPreferences();
         }
     }
 

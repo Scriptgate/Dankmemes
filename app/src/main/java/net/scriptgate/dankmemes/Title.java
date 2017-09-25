@@ -19,6 +19,12 @@ import static net.scriptgate.dankmemes.Square.createSquare;
 
 class Title implements RenderableAsSquare, Updatable {
 
+    private boolean visible = true;
+
+    void setVisible(boolean visible) {
+        this.visible = visible;
+    }
+
     private static class Switch {
 
         private long timeTillNextMode;
@@ -114,7 +120,9 @@ class Title implements RenderableAsSquare, Updatable {
 
     @Override
     public void render(Consumer<Square> renderer) {
-        renderer.accept(light.getModel());
+        if(visible) {
+            renderer.accept(light.getModel());
+        }
     }
 
     @Override

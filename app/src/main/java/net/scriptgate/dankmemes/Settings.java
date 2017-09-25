@@ -1,15 +1,17 @@
 package net.scriptgate.dankmemes;
 
+import net.scriptgate.dankmemes.livewallpaper.Preferences;
+
 public class Settings {
 
-    private boolean titleVisible;
+    public boolean titleVisible;
 
-    public Settings setTitleVisible(boolean visible) {
-        this.titleVisible = visible;
-        return this;
+    boolean needsUpdate() {
+        return Preferences.needsUpdate();
     }
 
-    boolean isTitleVisible() {
-        return titleVisible;
+    void update(DankmemesRenderer renderer) {
+        Settings updatedSettings = Preferences.getUpdatedSettings();
+        renderer.setTitleVisibility(updatedSettings.titleVisible);
     }
 }

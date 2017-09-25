@@ -37,7 +37,9 @@ public class DankmemesRenderer extends RendererBase {
     private List<RenderableAsSquare> renderables;
     private List<Updatable> updatables;
 
-    public DankmemesRenderer(Context activityContext, Settings settings) {
+    private Settings settings;
+
+    public DankmemesRenderer(Context activityContext) {
         super(ProjectionMatrix.createProjectionMatrix(150, 1));
         this.activityContext = activityContext;
         renderables = new ArrayList<>();
@@ -55,14 +57,14 @@ public class DankmemesRenderer extends RendererBase {
         Horizon horizon = new Horizon();
         renderables.add(horizon);
 
-        if(settings.isTitleVisible()) {
-            title = new Title();
-            renderables.add(title);
-            updatables.add(title);
-        }
+        title = new Title();
+        renderables.add(title);
+        updatables.add(title);
 
         delorean = new Delorean();
         renderables.add(delorean);
+
+        settings = new Settings();
     }
 
     @Override
@@ -117,6 +119,10 @@ public class DankmemesRenderer extends RendererBase {
     @Override
     public void onDrawFrame() {
 
+        if(settings.needsUpdate()) {
+            settings.update(this);
+        }
+
         glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
 
         long now = nanoTime();
@@ -159,14 +165,18 @@ public class DankmemesRenderer extends RendererBase {
     }
 
     public void turnTitleOn() {
-        if(title != null) {
+        if (title != null) {
             title.turnOn();
         }
     }
 
     public void turnTitleOff() {
-        if(title != null) {
+        if (title != null) {
             title.turnOff();
         }
+    }
+
+    public void setTitleVisibility(boolean titleVisibility) {
+        this.title.setVisible(titleVisibility);
     }
 }
