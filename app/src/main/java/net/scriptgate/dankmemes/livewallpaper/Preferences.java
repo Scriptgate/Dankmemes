@@ -1,6 +1,8 @@
 package net.scriptgate.dankmemes.livewallpaper;
 
+import android.content.Context;
 import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 
 import net.scriptgate.dankmemes.Settings;
 
@@ -10,6 +12,8 @@ import java.util.List;
 import java.util.Map;
 
 import java8.util.function.Consumer;
+
+import static java8.util.stream.StreamSupport.stream;
 
 public class Preferences implements SharedPreferences.OnSharedPreferenceChangeListener {
 
@@ -96,8 +100,20 @@ public class Preferences implements SharedPreferences.OnSharedPreferenceChangeLi
         return updates.hasUpdates();
     }
 
-    public static Settings getUpdatedSettings() {
-        return getInstance().applyUpdatesTo(new Settings());
+    public static Settings updateSettings(Settings settings) {
+        return getInstance().applyUpdatesTo(settings);
+    }
+
+    public static Settings getSettingsFromPreferences(Context context) {
+        final SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        final Settings settings = Settings.defaultSettings();
+        stream(getInstance().mappedPreferences.values()).forEach(new Consumer<PreferenceMapping>() {
+            @Override
+            public void accept(PreferenceMapping preferenceMapping) {
+                preferenceMapping.update(settings, sharedPreferences);
+            }
+        });
+        return settings;
     }
 
     private Settings applyUpdatesTo(Settings settings) {

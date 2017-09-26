@@ -19,7 +19,7 @@ import static net.scriptgate.dankmemes.Square.createSquare;
 
 class Title implements RenderableAsSquare, Updatable {
 
-    private boolean visible = true;
+    private boolean visible;
 
     void setVisible(boolean visible) {
         this.visible = visible;

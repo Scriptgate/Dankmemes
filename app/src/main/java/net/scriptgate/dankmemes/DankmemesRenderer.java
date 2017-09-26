@@ -64,7 +64,8 @@ public class DankmemesRenderer extends RendererBase {
         delorean = new Delorean();
         renderables.add(delorean);
 
-        settings = new Settings();
+        settings = Settings.sharedSettings(activityContext);
+        settings.update(this);
     }
 
     @Override

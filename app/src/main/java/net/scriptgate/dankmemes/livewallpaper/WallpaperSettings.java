@@ -1,5 +1,6 @@
 package net.scriptgate.dankmemes.livewallpaper;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
@@ -39,10 +40,11 @@ public class WallpaperSettings extends PreferenceActivity {
 
             // Make sure default values are applied.
             // In a real app, you would want this in a shared function that is used to retrieve the SharedPreferences wherever they are needed.
-            PreferenceManager.setDefaultValues(getActivity(), R.xml.components_preferences, false);
+            PreferenceManager.setDefaultValues(getActivity(), "dankmemes_settings", Context.MODE_PRIVATE, R.xml.components_preferences, false);
 
             // Load the preferences from an XML resource
             addPreferencesFromResource(R.xml.components_preferences);
+
         }
 
         @Override
@@ -61,6 +63,4 @@ public class WallpaperSettings extends PreferenceActivity {
             return getPreferenceScreen().getSharedPreferences();
         }
     }
-
-
 }
