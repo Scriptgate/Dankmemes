@@ -20,6 +20,7 @@ import static net.scriptgate.dankmemes.Square.createSquare;
 class Title implements RenderableAsSquare, Updatable {
 
     private boolean visible;
+    private boolean neon;
 
     void setVisible(boolean visible) {
         this.visible = visible;
@@ -28,9 +29,9 @@ class Title implements RenderableAsSquare, Updatable {
     private static class Switch {
 
         private long timeTillNextMode;
+
         private Position position = Position.OFF;
         private Map<Position, Square> models;
-
         Switch() {
             timeTillNextMode = position.timeSpentInMode;
             models = new HashMap<>();
@@ -49,18 +50,19 @@ class Title implements RenderableAsSquare, Updatable {
         void setTexture(final int texture) {
             stream(models.values()).forEach(new Consumer<Square>() {
                 @Override
-                public void accept(Square square) {square.setTexture(texture);
+                public void accept(Square square) {
+                    square.setTexture(texture);
                 }
             });
         }
 
         private enum Position {
-            ON(500, new Point2D(0, 0.5f)),
-            OFF(5000, new Point2D(0, 0));
+            ON(5000, new Point2D(0, 0.5f)),
+            OFF(200, new Point2D(0, 0));
 
             private final long timeSpentInMode;
-            private final Point2D textureOffset;
 
+            private final Point2D textureOffset;
             Position(long timeSpentInMode, Point2D textureOffset) {
                 this.timeSpentInMode = timeSpentInMode;
                 this.textureOffset = textureOffset;
@@ -120,22 +122,33 @@ class Title implements RenderableAsSquare, Updatable {
 
     @Override
     public void render(Consumer<Square> renderer) {
-        if(visible) {
+        if (visible) {
             renderer.accept(light.getModel());
         }
     }
 
     @Override
     public void update(long elapsedTime) {
-        //light.update(elapsedTime);
+        if (neon) {
+            light.update(elapsedTime);
+        }
+    }
+
+    public void setNeon(boolean neon) {
+        this.neon = neon;
+        turnOff();
     }
 
     void turnOn() {
-        light.turnOn();
+        if(!neon) {
+            light.turnOn();
+        }
     }
 
     void turnOff() {
-        light.turnOff();
+        if(!neon) {
+            light.turnOff();
+        }
     }
 
 }

@@ -180,4 +180,8 @@ public class DankmemesRenderer extends RendererBase {
     public void setTitleVisibility(boolean titleVisibility) {
         this.title.setVisible(titleVisibility);
     }
+
+    public void setTitleNeon(boolean titleNeon) {
+        this.title.setNeon(titleNeon);
+    }
 }

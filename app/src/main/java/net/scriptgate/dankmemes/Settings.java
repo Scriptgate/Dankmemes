@@ -7,6 +7,7 @@ import net.scriptgate.dankmemes.livewallpaper.preferences.Preferences;
 public class Settings {
 
     public boolean titleVisible;
+    public boolean titleNeon;
 
     boolean needsUpdate() {
         return Preferences.needsUpdate();
@@ -15,11 +16,13 @@ public class Settings {
     void update(DankmemesRenderer renderer) {
         Preferences.updateSettings(this);
         renderer.setTitleVisibility(titleVisible);
+        renderer.setTitleNeon(titleNeon);
     }
 
     public static Settings defaultSettings() {
         Settings settings = new Settings();
         settings.titleVisible = true;
+        settings.titleNeon = false;
         return settings;
     }
 

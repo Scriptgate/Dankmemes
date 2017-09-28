@@ -4,4 +4,8 @@
         android:defaultValue="true"
         android:key="title_visible"
         android:title="Show Title"/>
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:key="title_neon"
+        android:title="Blink off randomly"/>
 </PreferenceScreen>

@@ -18,6 +18,7 @@ import static java8.util.stream.StreamSupport.stream;
 public class Preferences implements SharedPreferences.OnSharedPreferenceChangeListener {
 
     private static final String TITLE_VISIBLE = "title_visible";
+    private static final String TITLE_NEON = "title_neon";
 
     private Map<String, PreferenceMapping> mappedPreferences;
     private PreferenceUpdates updates;
@@ -30,6 +31,12 @@ public class Preferences implements SharedPreferences.OnSharedPreferenceChangeLi
             @Override
             public void update(Settings settings, SharedPreferences sharedPreferences) {
                 settings.titleVisible = sharedPreferences.getBoolean(TITLE_VISIBLE, settings.titleVisible);
+            }
+        });
+        mappedPreferences.put(TITLE_NEON, new PreferenceMapping() {
+            @Override
+            public void update(Settings settings, SharedPreferences sharedPreferences) {
+                settings.titleNeon = sharedPreferences.getBoolean(TITLE_NEON, settings.titleNeon);
             }
         });
     }
