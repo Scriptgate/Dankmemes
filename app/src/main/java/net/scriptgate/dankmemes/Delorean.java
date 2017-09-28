@@ -12,14 +12,17 @@ import java8.util.function.Consumer;
 import static net.scriptgate.dankmemes.Square.ELEMENTS_PER_FACE;
 import static net.scriptgate.dankmemes.Square.createSquare;
 
-class Delorean implements RenderableAsSquare {
+class Delorean implements RenderableAsSquare, Updatable {
 
     private static final Point3D CENTER = new Point3D(-0.75f, 1, 0.0f);
 
     private final Square model;
+    private Point3D gyroscope;
     private boolean lock;
 
     Delorean() {
+        gyroscope = CENTER;
+
         float width = 1.0f;
         float height = 0.7f;
 
@@ -46,18 +49,23 @@ class Delorean implements RenderableAsSquare {
         model.setTexture(texture);
     }
 
+    @Override
+    public void update(long elapsedTime) {
+        if (!lock) {
+            model.setPosition(gyroscope);
+        }
+    }
+
     void transform(float[] deltaRotationVector) {
-        if(!lock) {
-            model.translate(new Point3D(deltaRotationVector[1] / 7.0f, 0, 0));
+        gyroscope = Point3D.addition(gyroscope, new Point3D(deltaRotationVector[1] / 7.0f, 0, 0));
 
-            float MINIMUM = -1.1f;
-            float MAXIMUM = -0.4f;
+        float MINIMUM = -1.1f;
+        float MAXIMUM = -0.4f;
 
-            if (model.position().x() < MINIMUM) {
-                model.setPosition(model.position().x(MINIMUM));
-            } else if (model.position().x() > MAXIMUM) {
-                model.setPosition(model.position().x(MAXIMUM));
-            }
+        if (gyroscope.x() < MINIMUM) {
+            gyroscope = gyroscope.x(MINIMUM);
+        } else if (gyroscope.x() > MAXIMUM) {
+            gyroscope = gyroscope.x(MAXIMUM);
         }
     }
 
@@ -68,11 +76,12 @@ class Delorean implements RenderableAsSquare {
 
     void reset() {
         model.setPosition(CENTER);
+        gyroscope = CENTER;
     }
 
     public void setLock(boolean lock) {
         this.lock = lock;
-        if(lock) {
+        if (lock) {
             reset();
         }
     }
