@@ -16,12 +16,16 @@ class Delorean implements RenderableAsSquare, Updatable {
 
     private static final Point3D CENTER = new Point3D(-0.75f, 1, 0.0f);
 
+    private static final float RESET_SPEED = 0.025f;
+
     private final Square model;
     private Point3D gyroscope;
     private boolean lock;
+    private Mode mode;
 
     Delorean() {
         gyroscope = CENTER;
+        mode = Mode.GYROSCOPE;
 
         float width = 1.0f;
         float height = 0.7f;
@@ -43,6 +47,12 @@ class Delorean implements RenderableAsSquare, Updatable {
         model.setScale(new Point3D(1.5f, 1.5f, 1));
     }
 
+    private enum Mode {
+        GYROSCOPE,
+        RESET,
+        LOCKED
+    }
+
     @Override
     public void loadTexture(Context context) {
         int texture = TextureHelper.loadTexture(context, R.drawable.delorean);
@@ -51,21 +61,42 @@ class Delorean implements RenderableAsSquare, Updatable {
 
     @Override
     public void update(long elapsedTime) {
-        if (!lock) {
-            model.setPosition(gyroscope);
+        switch (mode) {
+            case GYROSCOPE:
+                model.setPosition(gyroscope);
+                break;
+            case RESET:
+                if (distanceToCenter(model.position().x()) < RESET_SPEED) {
+                    model.setPosition(CENTER);
+                    mode = lock ? Mode.LOCKED : Mode.GYROSCOPE;
+                } else if (model.position().x() < CENTER.x()) {
+                    model.translate(new Point3D(RESET_SPEED, 0, 0));
+                } else {
+                    model.translate(new Point3D(-RESET_SPEED, 0, 0));
+                }
+                break;
+            case LOCKED:
+                break;
+
         }
     }
 
+    private double distanceToCenter(float x) {
+        return Math.sqrt(Math.pow((x - CENTER.x()), 2));
+    }
+
     void transform(float[] deltaRotationVector) {
-        gyroscope = Point3D.addition(gyroscope, new Point3D(deltaRotationVector[1] / 7.0f, 0, 0));
+        if (mode == Mode.GYROSCOPE) {
+            gyroscope = Point3D.addition(gyroscope, new Point3D(deltaRotationVector[1] / 7.0f, 0, 0));
 
-        float MINIMUM = -1.1f;
-        float MAXIMUM = -0.4f;
+            float MINIMUM = -1.1f;
+            float MAXIMUM = -0.4f;
 
-        if (gyroscope.x() < MINIMUM) {
-            gyroscope = gyroscope.x(MINIMUM);
-        } else if (gyroscope.x() > MAXIMUM) {
-            gyroscope = gyroscope.x(MAXIMUM);
+            if (gyroscope.x() < MINIMUM) {
+                gyroscope = gyroscope.x(MINIMUM);
+            } else if (gyroscope.x() > MAXIMUM) {
+                gyroscope = gyroscope.x(MAXIMUM);
+            }
         }
     }
 
@@ -75,11 +106,11 @@ class Delorean implements RenderableAsSquare, Updatable {
     }
 
     void reset() {
-        model.setPosition(CENTER);
+        mode = Mode.RESET;
         gyroscope = CENTER;
     }
 
-    public void setLock(boolean lock) {
+    void setLock(boolean lock) {
         this.lock = lock;
         if (lock) {
             reset();
