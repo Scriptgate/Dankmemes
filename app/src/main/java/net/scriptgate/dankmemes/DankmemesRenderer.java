@@ -184,4 +184,8 @@ public class DankmemesRenderer extends RendererBase {
     public void setTitleNeon(boolean titleNeon) {
         this.title.setNeon(titleNeon);
     }
+
+    public void setDeloreanLock(boolean deloreanLock) {
+        this.delorean.setLock(deloreanLock);
+    }
 }

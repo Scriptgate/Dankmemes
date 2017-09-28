@@ -8,6 +8,7 @@ public class Settings {
 
     public boolean titleVisible;
     public boolean titleNeon;
+    public boolean deloreanLock;
 
     boolean needsUpdate() {
         return Preferences.needsUpdate();
@@ -17,12 +18,14 @@ public class Settings {
         Preferences.updateSettings(this);
         renderer.setTitleVisibility(titleVisible);
         renderer.setTitleNeon(titleNeon);
+        renderer.setDeloreanLock(deloreanLock);
     }
 
     public static Settings defaultSettings() {
         Settings settings = new Settings();
         settings.titleVisible = true;
         settings.titleNeon = false;
+        settings.deloreanLock = false;
         return settings;
     }
 

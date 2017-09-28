@@ -17,6 +17,7 @@ class Delorean implements RenderableAsSquare {
     private static final Point3D CENTER = new Point3D(-0.75f, 1, 0.0f);
 
     private final Square model;
+    private boolean lock;
 
     Delorean() {
         float width = 1.0f;
@@ -46,17 +47,18 @@ class Delorean implements RenderableAsSquare {
     }
 
     void transform(float[] deltaRotationVector) {
-        model.translate(new Point3D(deltaRotationVector[1]/7.0f, 0,0));
+        if(!lock) {
+            model.translate(new Point3D(deltaRotationVector[1] / 7.0f, 0, 0));
 
-        float MINIMUM = -1.1f;
-        float MAXIMUM = -0.4f;
+            float MINIMUM = -1.1f;
+            float MAXIMUM = -0.4f;
 
-        if (model.position().x() < MINIMUM) {
-            model.setPosition(model.position().x(MINIMUM));
-        } else if (model.position().x() > MAXIMUM) {
-            model.setPosition(model.position().x(MAXIMUM));
+            if (model.position().x() < MINIMUM) {
+                model.setPosition(model.position().x(MINIMUM));
+            } else if (model.position().x() > MAXIMUM) {
+                model.setPosition(model.position().x(MAXIMUM));
+            }
         }
-
     }
 
     @Override
@@ -66,5 +68,12 @@ class Delorean implements RenderableAsSquare {
 
     void reset() {
         model.setPosition(CENTER);
+    }
+
+    public void setLock(boolean lock) {
+        this.lock = lock;
+        if(lock) {
+            reset();
+        }
     }
 }

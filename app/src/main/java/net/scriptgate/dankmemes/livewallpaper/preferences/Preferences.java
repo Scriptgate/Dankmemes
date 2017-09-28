@@ -19,6 +19,7 @@ public class Preferences implements SharedPreferences.OnSharedPreferenceChangeLi
 
     private static final String TITLE_VISIBLE = "title_visible";
     private static final String TITLE_NEON = "title_neon";
+    private static final String DELOREAN_LOCK = "delorean_lock";
 
     private Map<String, PreferenceMapping> mappedPreferences;
     private PreferenceUpdates updates;
@@ -37,6 +38,12 @@ public class Preferences implements SharedPreferences.OnSharedPreferenceChangeLi
             @Override
             public void update(Settings settings, SharedPreferences sharedPreferences) {
                 settings.titleNeon = sharedPreferences.getBoolean(TITLE_NEON, settings.titleNeon);
+            }
+        });
+        mappedPreferences.put(DELOREAN_LOCK, new PreferenceMapping() {
+            @Override
+            public void update(Settings settings, SharedPreferences sharedPreferences) {
+                settings.deloreanLock = sharedPreferences.getBoolean(DELOREAN_LOCK, settings.deloreanLock);
             }
         });
     }

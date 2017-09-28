@@ -1,14 +1,22 @@
-package net.scriptgate.dankmemes.livewallpaper;
+package net.scriptgate.dankmemes.livewallpaper.preferences;
 
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
 
 import net.scriptgate.dankmemes.R;
-import net.scriptgate.dankmemes.livewallpaper.preferences.TitlePreferences;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class WallpaperSettings extends PreferenceActivity {
+
+    private static final List<String> preferenceFragments;
+
+    static {
+        preferenceFragments = new ArrayList<>();
+        preferenceFragments.add(TitlePreferences.class.getName());
+        preferenceFragments.add(DeloreanPreferences.class.getName());
+    }
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -16,7 +24,7 @@ public class WallpaperSettings extends PreferenceActivity {
 
     @Override
     protected boolean isValidFragment(String fragmentName) {
-        return TitlePreferences.class.getName().equals(fragmentName);
+        return preferenceFragments.contains(fragmentName);
     }
 
     /**
@@ -26,6 +34,4 @@ public class WallpaperSettings extends PreferenceActivity {
     public void onBuildHeaders(List<Header> target) {
         loadHeadersFromResource(R.xml.preference_headers, target);
     }
-
-
 }

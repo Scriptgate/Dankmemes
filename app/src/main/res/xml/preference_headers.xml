@@ -3,6 +3,8 @@
 
     <header android:fragment="net.scriptgate.dankmemes.livewallpaper.preferences.TitlePreferences"
             android:title="Title" android:summary="Options" />
+    <header android:fragment="net.scriptgate.dankmemes.livewallpaper.preferences.DeloreanPreferences"
+            android:title="Delorean" android:summary="Options" />
 
 
 </preference-headers>

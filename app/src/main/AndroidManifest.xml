@@ -20,7 +20,7 @@
                 android:resource="@xml/wallpaper" />
         </service>
         <activity
-            android:name=".livewallpaper.WallpaperSettings"
+            android:name=".livewallpaper.preferences.WallpaperSettings"
             android:exported="true"
             android:label="@string/switching_wallpaper"
             android:permission="android.permission.BIND_WALLPAPER"
