@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.preference.PreferenceActivity;
 
 import net.scriptgate.dankmemes.R;
-import net.scriptgate.dankmemes.livewallpaper.settings.TitleOptionsFragment;
+import net.scriptgate.dankmemes.livewallpaper.settings.TitlePreferences;
 
 import java.util.List;
 
@@ -16,7 +16,7 @@ public class WallpaperSettings extends PreferenceActivity {
 
     @Override
     protected boolean isValidFragment(String fragmentName) {
-        return TitleOptionsFragment.class.getName().equals(fragmentName);
+        return TitlePreferences.class.getName().equals(fragmentName);
     }
 
     /**
