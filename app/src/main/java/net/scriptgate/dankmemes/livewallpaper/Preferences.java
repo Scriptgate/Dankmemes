@@ -84,11 +84,11 @@ public class Preferences implements SharedPreferences.OnSharedPreferenceChangeLi
         return instance;
     }
 
-    static void registerListener(SharedPreferences preferences) {
+    public static void registerListener(SharedPreferences preferences) {
         preferences.registerOnSharedPreferenceChangeListener(getInstance());
     }
 
-    static void unregisterListener(SharedPreferences preferences) {
+    public static void unregisterListener(SharedPreferences preferences) {
         preferences.unregisterOnSharedPreferenceChangeListener(getInstance());
     }
 
