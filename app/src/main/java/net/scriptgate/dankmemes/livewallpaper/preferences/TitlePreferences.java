@@ -1,4 +1,4 @@
-package net.scriptgate.dankmemes.livewallpaper.settings;
+package net.scriptgate.dankmemes.livewallpaper.preferences;
 
 
 import android.content.Context;
@@ -8,7 +8,6 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 
 import net.scriptgate.dankmemes.R;
-import net.scriptgate.dankmemes.livewallpaper.Preferences;
 
 public class TitlePreferences extends PreferenceFragment {
     @Override

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <preference-headers xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <header android:fragment="net.scriptgate.dankmemes.livewallpaper.settings.TitlePreferences"
+    <header android:fragment="net.scriptgate.dankmemes.livewallpaper.preferences.TitlePreferences"
             android:title="Title" android:summary="Options" />
 
 

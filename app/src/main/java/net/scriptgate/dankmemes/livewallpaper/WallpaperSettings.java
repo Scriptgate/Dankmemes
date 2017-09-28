@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.preference.PreferenceActivity;
 
 import net.scriptgate.dankmemes.R;
-import net.scriptgate.dankmemes.livewallpaper.settings.TitlePreferences;
+import net.scriptgate.dankmemes.livewallpaper.preferences.TitlePreferences;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package net.scriptgate.dankmemes.livewallpaper;
+package net.scriptgate.dankmemes.livewallpaper.preferences;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -17,6 +17,8 @@ import static java8.util.stream.StreamSupport.stream;
 
 public class Preferences implements SharedPreferences.OnSharedPreferenceChangeListener {
 
+    private static final String TITLE_VISIBLE = "title_visible";
+
     private Map<String, PreferenceMapping> mappedPreferences;
     private PreferenceUpdates updates;
 
@@ -24,10 +26,10 @@ public class Preferences implements SharedPreferences.OnSharedPreferenceChangeLi
         updates = new PreferenceUpdates();
 
         mappedPreferences = new HashMap<>();
-        mappedPreferences.put("show_title", new PreferenceMapping() {
+        mappedPreferences.put(TITLE_VISIBLE, new PreferenceMapping() {
             @Override
             public void update(Settings settings, SharedPreferences sharedPreferences) {
-                settings.titleVisible = sharedPreferences.getBoolean("show_title", settings.titleVisible);
+                settings.titleVisible = sharedPreferences.getBoolean(TITLE_VISIBLE, settings.titleVisible);
             }
         });
     }

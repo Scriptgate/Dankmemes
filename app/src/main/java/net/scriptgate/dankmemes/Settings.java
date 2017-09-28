@@ -2,7 +2,7 @@ package net.scriptgate.dankmemes;
 
 import android.content.Context;
 
-import net.scriptgate.dankmemes.livewallpaper.Preferences;
+import net.scriptgate.dankmemes.livewallpaper.preferences.Preferences;
 
 public class Settings {
 
