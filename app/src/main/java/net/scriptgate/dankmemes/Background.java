@@ -19,6 +19,7 @@ class Background implements RenderableAsSquare, Updatable {
     private static final float SCALE = 50;
 
     private List<Square> background;
+    private boolean lock;
 
     Background() {
         background = new ArrayList<>();
@@ -52,17 +53,19 @@ class Background implements RenderableAsSquare, Updatable {
 
     @Override
     public void update(long elapsedTime) {
-        final float distance = (1f / 2000.0f) * ((int) elapsedTime);
+        if(!lock) {
+            final float distance = (1f / 2000.0f) * ((int) elapsedTime);
 
-        stream(background).forEach(new Consumer<Square>() {
-            @Override
-            public void accept(Square square) {
-                if (square.position().y() > SCALE) {
-                    square.translate(new Point3D(0, -SCALE * background.size(), 0));
+            stream(background).forEach(new Consumer<Square>() {
+                @Override
+                public void accept(Square square) {
+                    if (square.position().y() > SCALE) {
+                        square.translate(new Point3D(0, -SCALE * background.size(), 0));
+                    }
+                    square.translate(new Point3D(0, distance, 0));
                 }
-                square.translate(new Point3D(0, distance, 0));
-            }
-        });
+            });
+        }
     }
 
     @Override
@@ -74,5 +77,9 @@ class Background implements RenderableAsSquare, Updatable {
                 square.setTexture(texture);
             }
         });
+    }
+
+    public void setLock(boolean lock) {
+        this.lock = lock;
     }
 }

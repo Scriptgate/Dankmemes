@@ -5,6 +5,9 @@
             android:title="Title" android:summary="Options" />
     <header android:fragment="net.scriptgate.dankmemes.livewallpaper.preferences.DeloreanPreferences"
             android:title="Delorean" android:summary="Options" />
-
+    <header android:fragment="net.scriptgate.dankmemes.livewallpaper.preferences.GridPreferences"
+            android:title="Grid" android:summary="Options" />
+    <header android:fragment="net.scriptgate.dankmemes.livewallpaper.preferences.BackgroundPreferences"
+            android:title="Background" android:summary="Options" />
 
 </preference-headers>

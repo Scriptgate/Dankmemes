@@ -26,7 +26,9 @@ import static net.scriptgate.android.opengles.program.ProgramBuilder.program;
 public class DankmemesRenderer extends RendererBase {
 
 
-    private Title title = null;
+    private Background background;
+    private Grid grid;
+    private Title title;
     private Delorean delorean;
 
     private Context activityContext;
@@ -46,11 +48,11 @@ public class DankmemesRenderer extends RendererBase {
         updatables = new ArrayList<>();
 
 
-        Background background = new Background();
+        background = new Background();
         renderables.add(background);
         updatables.add(background);
 
-        Grid grid = new Grid();
+        grid = new Grid();
         renderables.add(grid);
         updatables.add(grid);
 
@@ -187,5 +189,13 @@ public class DankmemesRenderer extends RendererBase {
 
     public void setDeloreanLock(boolean deloreanLock) {
         this.delorean.setLock(deloreanLock);
+    }
+
+    public void setBackgroundLock(boolean backgroundLock) {
+        this.background.setLock(backgroundLock);
+    }
+
+    public void setGridLock(boolean gridLock) {
+        this.grid.setLock(gridLock);
     }
 }

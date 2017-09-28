@@ -16,6 +16,8 @@ public class WallpaperSettings extends PreferenceActivity {
         preferenceFragments = new ArrayList<>();
         preferenceFragments.add(TitlePreferences.class.getName());
         preferenceFragments.add(DeloreanPreferences.class.getName());
+        preferenceFragments.add(BackgroundPreferences.class.getName());
+        preferenceFragments.add(GridPreferences.class.getName());
     }
 
     protected void onCreate(Bundle savedInstanceState) {

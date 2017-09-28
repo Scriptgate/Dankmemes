@@ -19,6 +19,7 @@ class Grid implements RenderableAsSquare, Updatable {
     private static final float SCALE = 25;
 
     private List<Square> grid;
+    private boolean lock;
 
     Grid() {
         grid = new ArrayList<>();
@@ -51,19 +52,19 @@ class Grid implements RenderableAsSquare, Updatable {
 
     @Override
     public void update(long elapsedTime) {
+        if(!lock) {
+            final float distance = elapsedTime / 200f;
 
-        final float distance = elapsedTime / 200f;
-
-        stream(grid).forEach(new Consumer<Square>() {
-            @Override
-            public void accept(Square square) {
-                if(square.position().z() > SCALE) {
-                    square.translate(new Point3D(0,0,-SCALE*grid.size()));
+            stream(grid).forEach(new Consumer<Square>() {
+                @Override
+                public void accept(Square square) {
+                    if (square.position().z() > SCALE) {
+                        square.translate(new Point3D(0, 0, -SCALE * grid.size()));
+                    }
+                    square.translate(new Point3D(0, 0, distance));
                 }
-                square.translate(new Point3D(0,0,distance));
-            }
-        });
-
+            });
+        }
     }
 
     @Override
@@ -75,5 +76,9 @@ class Grid implements RenderableAsSquare, Updatable {
                 square.setTexture(texture);
             }
         });
+    }
+
+    public void setLock(boolean lock) {
+        this.lock = lock;
     }
 }

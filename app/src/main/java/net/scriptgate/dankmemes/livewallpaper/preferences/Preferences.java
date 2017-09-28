@@ -20,6 +20,8 @@ public class Preferences implements SharedPreferences.OnSharedPreferenceChangeLi
     private static final String TITLE_VISIBLE = "title_visible";
     private static final String TITLE_NEON = "title_neon";
     private static final String DELOREAN_LOCK = "delorean_lock";
+    private static final String BACKGROUND_LOCK = "background_lock";
+    private static final String GRID_LOCK = "grid_lock";
 
     private Map<String, PreferenceMapping> mappedPreferences;
     private PreferenceUpdates updates;
@@ -44,6 +46,18 @@ public class Preferences implements SharedPreferences.OnSharedPreferenceChangeLi
             @Override
             public void update(Settings settings, SharedPreferences sharedPreferences) {
                 settings.deloreanLock = sharedPreferences.getBoolean(DELOREAN_LOCK, settings.deloreanLock);
+            }
+        });
+        mappedPreferences.put(BACKGROUND_LOCK, new PreferenceMapping() {
+            @Override
+            public void update(Settings settings, SharedPreferences sharedPreferences) {
+                settings.backgroundLock = sharedPreferences.getBoolean(BACKGROUND_LOCK, settings.backgroundLock);
+            }
+        });
+        mappedPreferences.put(GRID_LOCK, new PreferenceMapping() {
+            @Override
+            public void update(Settings settings, SharedPreferences sharedPreferences) {
+                settings.gridLock = sharedPreferences.getBoolean(GRID_LOCK, settings.gridLock);
             }
         });
     }
@@ -100,11 +114,11 @@ public class Preferences implements SharedPreferences.OnSharedPreferenceChangeLi
         return instance;
     }
 
-    public static void registerListener(SharedPreferences preferences) {
+    static void registerListener(SharedPreferences preferences) {
         preferences.registerOnSharedPreferenceChangeListener(getInstance());
     }
 
-    public static void unregisterListener(SharedPreferences preferences) {
+    static void unregisterListener(SharedPreferences preferences) {
         preferences.unregisterOnSharedPreferenceChangeListener(getInstance());
     }
 
