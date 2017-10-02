@@ -14,10 +14,7 @@ public class WallpaperSettings extends PreferenceActivity {
 
     static {
         preferenceFragments = new ArrayList<>();
-        preferenceFragments.add(TitlePreferences.class.getName());
-        preferenceFragments.add(DeloreanPreferences.class.getName());
-        preferenceFragments.add(BackgroundPreferences.class.getName());
-        preferenceFragments.add(GridPreferences.class.getName());
+        preferenceFragments.addAll(DankmemesPreferences.getImplementations());
     }
 
     protected void onCreate(Bundle savedInstanceState) {

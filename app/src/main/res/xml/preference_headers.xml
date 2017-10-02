@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <preference-headers xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <header android:fragment="net.scriptgate.dankmemes.livewallpaper.preferences.TitlePreferences"
+    <header android:fragment="net.scriptgate.dankmemes.livewallpaper.preferences.DankmemesPreferences$TitlePreferences"
             android:title="Title" android:summary="Options" />
-    <header android:fragment="net.scriptgate.dankmemes.livewallpaper.preferences.DeloreanPreferences"
+    <header android:fragment="net.scriptgate.dankmemes.livewallpaper.preferences.DankmemesPreferences$DeloreanPreferences"
             android:title="Delorean" android:summary="Options" />
-    <header android:fragment="net.scriptgate.dankmemes.livewallpaper.preferences.GridPreferences"
+    <header android:fragment="net.scriptgate.dankmemes.livewallpaper.preferences.DankmemesPreferences$GridPreferences"
             android:title="Grid" android:summary="Options" />
-    <header android:fragment="net.scriptgate.dankmemes.livewallpaper.preferences.BackgroundPreferences"
+    <header android:fragment="net.scriptgate.dankmemes.livewallpaper.preferences.DankmemesPreferences$BackgroundPreferences"
             android:title="Background" android:summary="Options" />
 
 </preference-headers>
