@@ -1,1 +1,1 @@
-include ':app', ':scriptgate-android-common'
+include ':app', ':common'

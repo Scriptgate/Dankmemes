@@ -1,12 +1,12 @@
-apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.0"
     defaultConfig {
-        applicationId "net.scriptgate.dankmemes"
         minSdkVersion 22
         targetSdkVersion 25
+
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -20,11 +20,21 @@ android {
 }
 
 dependencies {
+    compile 'net.sourceforge.streamsupport:streamsupport:1.5.3'
+
+    compile fileTree(dir: 'libs', include: ['*.jar'])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     compile 'com.android.support:appcompat-v7:25.3.1'
     testCompile 'junit:junit:4.12'
-    compile 'net.sourceforge.streamsupport:streamsupport:1.5.3'
-    compile project(':common')
+}
+
+task copyToScriptgateRepo(type: Copy) {
+    group = 'scriptgate'
+    from "$project.buildDir/outputs/aar"
+    into "C:/android/scriptgate-repo"
+    include 'app-debug.aar'
+    rename 'app-debug.aar', 'scriptgate-android-common.aar'
+    dependsOn build
 }
