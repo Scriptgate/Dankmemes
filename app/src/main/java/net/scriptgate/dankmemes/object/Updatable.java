@@ -1,4 +1,4 @@
-package net.scriptgate.dankmemes;
+package net.scriptgate.dankmemes.object;
 
 
 public interface Updatable {

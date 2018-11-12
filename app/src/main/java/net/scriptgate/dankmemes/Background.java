@@ -6,6 +6,9 @@ import android.content.Context;
 import net.scriptgate.android.common.Point3D;
 import net.scriptgate.android.opengles.face.Point3DFace;
 import net.scriptgate.android.opengles.texture.TextureHelper;
+import net.scriptgate.dankmemes.object.Renderable;
+import net.scriptgate.dankmemes.object.RenderableAsSquare;
+import net.scriptgate.dankmemes.object.Updatable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +17,7 @@ import java8.util.function.Consumer;
 
 import static java8.util.stream.StreamSupport.stream;
 
-class Background implements RenderableAsSquare, Updatable {
+class Background implements Renderable {
 
     private static final float SCALE = 50;
 

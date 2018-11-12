@@ -1,11 +1,13 @@
-package net.scriptgate.dankmemes;
+package net.scriptgate.dankmemes.object;
 
 
 import android.content.Context;
 
+import net.scriptgate.dankmemes.Square;
+
 import java8.util.function.Consumer;
 
-interface RenderableAsSquare {
+public interface RenderableAsSquare {
 
     void loadTexture(Context context);
 

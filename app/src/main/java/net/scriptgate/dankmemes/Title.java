@@ -7,6 +7,9 @@ import net.scriptgate.android.common.Point2D;
 import net.scriptgate.android.common.Point3D;
 import net.scriptgate.android.opengles.face.Point3DFace;
 import net.scriptgate.android.opengles.texture.TextureHelper;
+import net.scriptgate.dankmemes.object.Renderable;
+import net.scriptgate.dankmemes.object.RenderableAsSquare;
+import net.scriptgate.dankmemes.object.Updatable;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -17,7 +20,7 @@ import static java8.util.stream.StreamSupport.stream;
 import static net.scriptgate.dankmemes.Square.ELEMENTS_PER_FACE;
 import static net.scriptgate.dankmemes.Square.createSquare;
 
-class Title implements RenderableAsSquare, Updatable {
+class Title implements Renderable {
 
     private boolean visible;
     private boolean neon;

@@ -17,9 +17,9 @@ import static android.opengl.GLES20.*;
 import static net.scriptgate.android.nio.BufferHelper.allocateBuffer;
 import static net.scriptgate.android.opengles.program.UniformVariable.MVP_MATRIX;
 
-class Square {
+public class Square {
 
-    static final int ELEMENTS_PER_FACE = 6;
+    public static final int ELEMENTS_PER_FACE = 6;
 
     private FloatBuffer verticesBuffer;
     private FloatBuffer textureCoordinateBuffer;
@@ -31,7 +31,7 @@ class Square {
 
 
 
-    static Square createSquare(Point3D position, Point3D rotation, float[] verticesData, float[] textureData) {
+    public static Square createSquare(Point3D position, Point3D rotation, float[] verticesData, float[] textureData) {
         FloatBuffer verticesBuffer = allocateBuffer(verticesData);
         FloatBuffer textureCoordinateBuffer = allocateBuffer(textureData);
         return new Square(position, rotation, verticesBuffer, textureCoordinateBuffer);
@@ -44,7 +44,7 @@ class Square {
         this.textureCoordinateBuffer = textureCoordinateBuffer;
     }
 
-    void draw(Program program, ModelMatrix modelMatrix, ViewMatrix viewMatrix, ProjectionMatrix projectionMatrix, ModelViewProjectionMatrix mvpMatrix) {
+    public void draw(Program program, ModelMatrix modelMatrix, ViewMatrix viewMatrix, ProjectionMatrix projectionMatrix, ModelViewProjectionMatrix mvpMatrix) {
         modelMatrix.setIdentity();
         modelMatrix.translate(position);
         modelMatrix.rotate(rotation);
@@ -64,23 +64,23 @@ class Square {
         glDrawArrays(GL_TRIANGLES, 0, ELEMENTS_PER_FACE);
     }
 
-    void setTexture(int texture) {
+    public void setTexture(int texture) {
         this.texture = texture;
     }
 
-    void setScale(Point3D scale) {
+    public void setScale(Point3D scale) {
         this.scale = scale;
     }
 
-    void translate(Point3D offset) {
+    public void translate(Point3D offset) {
         this.position = Point3D.addition(position, offset);
     }
 
-    Point3D position() {
+    public Point3D position() {
         return position;
     }
 
-    void setPosition(Point3D position) {
+    public void setPosition(Point3D position) {
         this.position = position;
     }
 }

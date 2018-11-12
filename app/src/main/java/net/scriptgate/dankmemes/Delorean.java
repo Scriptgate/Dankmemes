@@ -6,13 +6,16 @@ import android.content.Context;
 import net.scriptgate.android.common.Point3D;
 import net.scriptgate.android.opengles.face.Point3DFace;
 import net.scriptgate.android.opengles.texture.TextureHelper;
+import net.scriptgate.dankmemes.object.Renderable;
+import net.scriptgate.dankmemes.object.RenderableAsSquare;
+import net.scriptgate.dankmemes.object.Updatable;
 
 import java8.util.function.Consumer;
 
 import static net.scriptgate.dankmemes.Square.ELEMENTS_PER_FACE;
 import static net.scriptgate.dankmemes.Square.createSquare;
 
-class Delorean implements RenderableAsSquare, Updatable {
+class Delorean implements Renderable {
 
     private static final Point3D CENTER = new Point3D(-0.75f, 1, 0.0f);
 

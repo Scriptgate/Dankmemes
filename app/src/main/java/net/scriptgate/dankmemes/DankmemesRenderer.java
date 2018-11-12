@@ -9,6 +9,8 @@ import net.scriptgate.android.opengles.matrix.ProjectionMatrix;
 import net.scriptgate.android.opengles.matrix.ViewMatrix;
 import net.scriptgate.android.opengles.program.Program;
 import net.scriptgate.android.opengles.renderer.RendererBase;
+import net.scriptgate.dankmemes.object.RenderableAsSquare;
+import net.scriptgate.dankmemes.object.Updatable;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -6,6 +6,7 @@ import android.content.Context;
 import net.scriptgate.android.common.Point3D;
 import net.scriptgate.android.opengles.face.Point3DFace;
 import net.scriptgate.android.opengles.texture.TextureHelper;
+import net.scriptgate.dankmemes.object.RenderableAsSquare;
 
 import java8.util.function.Consumer;
 
